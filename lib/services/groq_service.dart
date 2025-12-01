@@ -8,7 +8,7 @@ import 'ai_service_interface.dart';
 /// Provides fast and free workout plan generation
 class GroqService implements AIService {
   // Groq API configuration
-  static const String _apiKey = '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';
+  static const String _apiKey = '';
   static const String _apiUrl = 'https://api.groq.com/openai/v1/chat/completions';
   static const String _model = 'llama-3.3-70b-versatile';
   
