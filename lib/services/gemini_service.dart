@@ -13,7 +13,7 @@ class GeminiService {
     String gender,
   ) async {
     // API Key - hardcoded for APK distribution
-    final apiKey = 'AIzaSyCt7FaqbAwsmT4a-yWyobgDjrWtOQgfYAg';
+    final apiKey = '';
     
     if (apiKey.isEmpty) {
       print("HATA: API Anahtarı bulunamadı");
