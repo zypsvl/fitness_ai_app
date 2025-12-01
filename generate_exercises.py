@@ -1,0 +1,1096 @@
+
+import json
+
+exercises = [
+  {
+    "id": "skater_hops",
+    "name": "Skater Hops",
+    "mechanic": "cardio",
+    "equipment_tier": "home",
+    "primary_muscle": "legs",
+    "secondary_muscles": [
+      "glutes",
+      "core"
+    ],
+    "body_part": "full_body",
+    "difficulty": 2,
+    "gif": "skater_hops.gif"
+  },
+  {
+    "id": "tuck_jumps",
+    "name": "Tuck Jumps",
+    "mechanic": "cardio",
+    "equipment_tier": "home",
+    "primary_muscle": "legs",
+    "secondary_muscles": [
+      "core"
+    ],
+    "body_part": "full_body",
+    "difficulty": 2,
+    "gif": "tuck_jumps.gif"
+  },
+  {
+    "id": "star_jumps",
+    "name": "Star Jumps",
+    "mechanic": "cardio",
+    "equipment_tier": "home",
+    "primary_muscle": "full_body",
+    "secondary_muscles": [
+      "legs",
+      "shoulders"
+    ],
+    "body_part": "full_body",
+    "difficulty": 2,
+    "gif": "star_jumps.gif"
+  },
+  {
+    "id": "seal_jacks",
+    "name": "Seal Jacks",
+    "mechanic": "cardio",
+    "equipment_tier": "home",
+    "primary_muscle": "full_body",
+    "secondary_muscles": [
+      "shoulders"
+    ],
+    "body_part": "full_body",
+    "difficulty": 1,
+    "gif": "seal_jacks.gif"
+  },
+  # Restored Exercises (from hamstring_stretch onwards)
+  {
+    "id": "hamstring_stretch",
+    "name": "Hamstring Stretch",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "hamstrings",
+    "secondary_muscles": [],
+    "body_part": "legs",
+    "difficulty": 1,
+    "gif": "hamstring_stretch.gif"
+  },
+  {
+    "id": "quad_stretch",
+    "name": "Quad Stretch",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "quadriceps",
+    "secondary_muscles": [],
+    "body_part": "legs",
+    "difficulty": 1,
+    "gif": "quad_stretch.gif"
+  },
+  {
+    "id": "hip_flexor_stretch",
+    "name": "Hip Flexor Stretch",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "hip_flexors",
+    "secondary_muscles": [],
+    "body_part": "legs",
+    "difficulty": 1,
+    "gif": "hip_flexor_stretch.gif"
+  },
+  {
+    "id": "pigeon_pose",
+    "name": "Pigeon Pose",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "glutes",
+    "secondary_muscles": ["hip_flexors"],
+    "body_part": "legs",
+    "difficulty": 1,
+    "gif": "pigeon_pose.gif"
+  },
+  {
+    "id": "cat_cow_stretch",
+    "name": "Cat Cow Stretch",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "lower_back",
+    "secondary_muscles": ["abs"],
+    "body_part": "core",
+    "difficulty": 1,
+    "gif": "cat_cow_stretch.gif"
+  },
+  {
+    "id": "childs_pose",
+    "name": "Child's Pose",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "lower_back",
+    "secondary_muscles": ["shoulders"],
+    "body_part": "core",
+    "difficulty": 1,
+    "gif": "childs_pose.gif"
+  },
+  {
+    "id": "shoulder_stretch",
+    "name": "Shoulder Stretch",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "shoulders",
+    "secondary_muscles": [],
+    "body_part": "upper_body",
+    "difficulty": 1,
+    "gif": "shoulder_stretch.gif"
+  },
+  {
+    "id": "tricep_stretch",
+    "name": "Tricep Stretch",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "triceps",
+    "secondary_muscles": [],
+    "body_part": "upper_body",
+    "difficulty": 1,
+    "gif": "tricep_stretch.gif"
+  },
+  {
+    "id": "chest_stretch",
+    "name": "Chest Stretch",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "chest",
+    "secondary_muscles": ["shoulders"],
+    "body_part": "upper_body",
+    "difficulty": 1,
+    "gif": "chest_stretch.gif"
+  },
+  {
+    "id": "seated_spinal_twist",
+    "name": "Seated Spinal Twist",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "obliques",
+    "secondary_muscles": ["lower_back"],
+    "body_part": "core",
+    "difficulty": 1,
+    "gif": "seated_spinal_twist.gif"
+  },
+  # Resistance Band Exercises
+  {
+    "id": "band_pull_apart",
+    "name": "Band Pull Apart",
+    "mechanic": "isolation",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "rear_delts",
+    "secondary_muscles": ["upper_back"],
+    "body_part": "upper_body",
+    "difficulty": 1,
+    "gif": "band_pull_apart.gif"
+  },
+  {
+    "id": "banded_squat",
+    "name": "Banded Squat",
+    "mechanic": "compound",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "quadriceps",
+    "secondary_muscles": ["glutes"],
+    "body_part": "legs",
+    "difficulty": 2,
+    "gif": "banded_squat.gif"
+  },
+  {
+    "id": "banded_row",
+    "name": "Banded Row",
+    "mechanic": "compound",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "back",
+    "secondary_muscles": ["biceps"],
+    "body_part": "upper_body",
+    "difficulty": 1,
+    "gif": "banded_row.gif"
+  },
+  {
+    "id": "pallof_press",
+    "name": "Pallof Press",
+    "mechanic": "isolation",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "core",
+    "secondary_muscles": ["obliques"],
+    "body_part": "core",
+    "difficulty": 2,
+    "gif": "pallof_press.gif"
+  },
+  {
+    "id": "banded_face_pull",
+    "name": "Banded Face Pull",
+    "mechanic": "isolation",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "rear_delts",
+    "secondary_muscles": ["upper_back"],
+    "body_part": "upper_body",
+    "difficulty": 1,
+    "gif": "banded_face_pull.gif"
+  },
+  {
+    "id": "banded_bicep_curl",
+    "name": "Banded Bicep Curl",
+    "mechanic": "isolation",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "biceps",
+    "secondary_muscles": [],
+    "body_part": "upper_body",
+    "difficulty": 1,
+    "gif": "banded_bicep_curl.gif"
+  },
+  {
+    "id": "banded_tricep_pressdown",
+    "name": "Banded Tricep Pressdown",
+    "mechanic": "isolation",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "triceps",
+    "secondary_muscles": [],
+    "body_part": "upper_body",
+    "difficulty": 1,
+    "gif": "banded_tricep_pressdown.gif"
+  },
+  {
+    "id": "banded_lateral_walk",
+    "name": "Banded Lateral Walk",
+    "mechanic": "isolation",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "glutes",
+    "secondary_muscles": ["abductors"],
+    "body_part": "legs",
+    "difficulty": 1,
+    "gif": "banded_lateral_walk.gif"
+  },
+  {
+    "id": "banded_glute_bridge",
+    "name": "Banded Glute Bridge",
+    "mechanic": "isolation",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "glutes",
+    "secondary_muscles": ["hamstrings"],
+    "body_part": "legs",
+    "difficulty": 1,
+    "gif": "banded_glute_bridge.gif"
+  },
+  {
+    "id": "banded_clamshell",
+    "name": "Banded Clamshell",
+    "mechanic": "isolation",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "glutes",
+    "secondary_muscles": [],
+    "body_part": "legs",
+    "difficulty": 1,
+    "gif": "banded_clamshell.gif"
+  },
+  {
+    "id": "banded_push_up",
+    "name": "Banded Push Up",
+    "mechanic": "compound",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "chest",
+    "secondary_muscles": ["triceps", "shoulders"],
+    "body_part": "upper_body",
+    "difficulty": 2,
+    "gif": "banded_push_up.gif"
+  },
+  {
+    "id": "banded_shoulder_press",
+    "name": "Banded Shoulder Press",
+    "mechanic": "compound",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "shoulders",
+    "secondary_muscles": ["triceps"],
+    "body_part": "upper_body",
+    "difficulty": 2,
+    "gif": "banded_shoulder_press.gif"
+  },
+  {
+    "id": "banded_deadlift",
+    "name": "Banded Deadlift",
+    "mechanic": "compound",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "hamstrings",
+    "secondary_muscles": ["glutes", "lower_back"],
+    "body_part": "legs",
+    "difficulty": 2,
+    "gif": "banded_deadlift.gif"
+  },
+  {
+    "id": "banded_hamstring_curl",
+    "name": "Banded Hamstring Curl",
+    "mechanic": "isolation",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "hamstrings",
+    "secondary_muscles": [],
+    "body_part": "legs",
+    "difficulty": 1,
+    "gif": "banded_hamstring_curl.gif"
+  },
+  {
+    "id": "banded_chest_fly",
+    "name": "Banded Chest Fly",
+    "mechanic": "isolation",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "chest",
+    "secondary_muscles": ["shoulders"],
+    "body_part": "upper_body",
+    "difficulty": 1,
+    "gif": "banded_chest_fly.gif"
+  },
+  {
+    "id": "banded_lat_pulldown",
+    "name": "Banded Lat Pulldown",
+    "mechanic": "compound",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "lats",
+    "secondary_muscles": ["biceps"],
+    "body_part": "upper_body",
+    "difficulty": 1,
+    "gif": "banded_lat_pulldown.gif"
+  },
+  {
+    "id": "banded_woodchop",
+    "name": "Banded Woodchop",
+    "mechanic": "compound",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "obliques",
+    "secondary_muscles": ["abs"],
+    "body_part": "core",
+    "difficulty": 2,
+    "gif": "banded_woodchop.gif"
+  },
+  {
+    "id": "banded_good_morning",
+    "name": "Banded Good Morning",
+    "mechanic": "isolation",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "lower_back",
+    "secondary_muscles": ["hamstrings"],
+    "body_part": "core",
+    "difficulty": 2,
+    "gif": "banded_good_morning.gif"
+  },
+  {
+    "id": "banded_upright_row",
+    "name": "Banded Upright Row",
+    "mechanic": "compound",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "shoulders",
+    "secondary_muscles": ["traps"],
+    "body_part": "upper_body",
+    "difficulty": 1,
+    "gif": "banded_upright_row.gif"
+  },
+  {
+    "id": "banded_front_raise",
+    "name": "Banded Front Raise",
+    "mechanic": "isolation",
+    "equipment_tier": "resistance_band",
+    "primary_muscle": "front_delts",
+    "secondary_muscles": [],
+    "body_part": "upper_body",
+    "difficulty": 1,
+    "gif": "banded_front_raise.gif"
+  },
+  # TRX Exercises
+  {
+    "id": "trx_row",
+    "name": "TRX Row",
+    "mechanic": "compound",
+    "equipment_tier": "trx",
+    "primary_muscle": "back",
+    "secondary_muscles": ["biceps", "core"],
+    "body_part": "upper_body",
+    "difficulty": 2,
+    "gif": "trx_row.gif"
+  },
+  {
+    "id": "trx_push_up",
+    "name": "TRX Push Up",
+    "mechanic": "compound",
+    "equipment_tier": "trx",
+    "primary_muscle": "chest",
+    "secondary_muscles": ["triceps", "core"],
+    "body_part": "upper_body",
+    "difficulty": 3,
+    "gif": "trx_push_up.gif"
+  },
+  {
+    "id": "trx_squat",
+    "name": "TRX Squat",
+    "mechanic": "compound",
+    "equipment_tier": "trx",
+    "primary_muscle": "quadriceps",
+    "secondary_muscles": ["glutes"],
+    "body_part": "legs",
+    "difficulty": 1,
+    "gif": "trx_squat.gif"
+  },
+  {
+    "id": "trx_pistol_squat",
+    "name": "TRX Pistol Squat",
+    "mechanic": "compound",
+    "equipment_tier": "trx",
+    "primary_muscle": "quadriceps",
+    "secondary_muscles": ["glutes", "balance"],
+    "body_part": "legs",
+    "difficulty": 4,
+    "gif": "trx_pistol_squat.gif"
+  },
+  {
+    "id": "trx_lunge",
+    "name": "TRX Lunge",
+    "mechanic": "compound",
+    "equipment_tier": "trx",
+    "primary_muscle": "quadriceps",
+    "secondary_muscles": ["glutes"],
+    "body_part": "legs",
+    "difficulty": 2,
+    "gif": "trx_lunge.gif"
+  },
+  {
+    "id": "trx_hamstring_curl",
+    "name": "TRX Hamstring Curl",
+    "mechanic": "isolation",
+    "equipment_tier": "trx",
+    "primary_muscle": "hamstrings",
+    "secondary_muscles": ["glutes"],
+    "body_part": "legs",
+    "difficulty": 3,
+    "gif": "trx_hamstring_curl.gif"
+  },
+  {
+    "id": "trx_chest_fly",
+    "name": "TRX Chest Fly",
+    "mechanic": "isolation",
+    "equipment_tier": "trx",
+    "primary_muscle": "chest",
+    "secondary_muscles": ["shoulders"],
+    "body_part": "upper_body",
+    "difficulty": 3,
+    "gif": "trx_chest_fly.gif"
+  },
+  {
+    "id": "trx_y_fly",
+    "name": "TRX Y Fly",
+    "mechanic": "isolation",
+    "equipment_tier": "trx",
+    "primary_muscle": "shoulders",
+    "secondary_muscles": ["upper_back"],
+    "body_part": "upper_body",
+    "difficulty": 3,
+    "gif": "trx_y_fly.gif"
+  },
+  {
+    "id": "trx_bicep_curl",
+    "name": "TRX Bicep Curl",
+    "mechanic": "isolation",
+    "equipment_tier": "trx",
+    "primary_muscle": "biceps",
+    "secondary_muscles": [],
+    "body_part": "upper_body",
+    "difficulty": 2,
+    "gif": "trx_bicep_curl.gif"
+  },
+  {
+    "id": "trx_tricep_extension",
+    "name": "TRX Tricep Extension",
+    "mechanic": "isolation",
+    "equipment_tier": "trx",
+    "primary_muscle": "triceps",
+    "secondary_muscles": [],
+    "body_part": "upper_body",
+    "difficulty": 2,
+    "gif": "trx_tricep_extension.gif"
+  },
+  {
+    "id": "trx_plank",
+    "name": "TRX Plank",
+    "mechanic": "isolation",
+    "equipment_tier": "trx",
+    "primary_muscle": "core",
+    "secondary_muscles": ["shoulders"],
+    "body_part": "core",
+    "difficulty": 3,
+    "gif": "trx_plank.gif"
+  },
+  {
+    "id": "trx_mountain_climber",
+    "name": "TRX Mountain Climber",
+    "mechanic": "compound",
+    "equipment_tier": "trx",
+    "primary_muscle": "core",
+    "secondary_muscles": ["hip_flexors"],
+    "body_part": "core",
+    "difficulty": 3,
+    "gif": "trx_mountain_climber.gif"
+  },
+  {
+    "id": "trx_pike",
+    "name": "TRX Pike",
+    "mechanic": "compound",
+    "equipment_tier": "trx",
+    "primary_muscle": "core",
+    "secondary_muscles": ["shoulders"],
+    "body_part": "core",
+    "difficulty": 4,
+    "gif": "trx_pike.gif"
+  },
+  {
+    "id": "trx_atomic_push_up",
+    "name": "TRX Atomic Push Up",
+    "mechanic": "compound",
+    "equipment_tier": "trx",
+    "primary_muscle": "chest",
+    "secondary_muscles": ["core", "triceps"],
+    "body_part": "full_body",
+    "difficulty": 5,
+    "gif": "trx_atomic_push_up.gif"
+  },
+  {
+    "id": "trx_power_pull",
+    "name": "TRX Power Pull",
+    "mechanic": "compound",
+    "equipment_tier": "trx",
+    "primary_muscle": "back",
+    "secondary_muscles": ["obliques", "shoulders"],
+    "body_part": "upper_body",
+    "difficulty": 3,
+    "gif": "trx_power_pull.gif"
+  },
+  {
+    "id": "trx_alligator",
+    "name": "TRX Alligator",
+    "mechanic": "compound",
+    "equipment_tier": "trx",
+    "primary_muscle": "shoulders",
+    "secondary_muscles": ["core"],
+    "body_part": "upper_body",
+    "difficulty": 3,
+    "gif": "trx_alligator.gif"
+  },
+  {
+    "id": "trx_clock_press",
+    "name": "TRX Clock Press",
+    "mechanic": "compound",
+    "equipment_tier": "trx",
+    "primary_muscle": "chest",
+    "secondary_muscles": ["shoulders", "core"],
+    "body_part": "upper_body",
+    "difficulty": 4,
+    "gif": "trx_clock_press.gif"
+  },
+  {
+    "id": "trx_hip_press",
+    "name": "TRX Hip Press",
+    "mechanic": "isolation",
+    "equipment_tier": "trx",
+    "primary_muscle": "glutes",
+    "secondary_muscles": ["hamstrings"],
+    "body_part": "legs",
+    "difficulty": 2,
+    "gif": "trx_hip_press.gif"
+  },
+  {
+    "id": "trx_side_plank",
+    "name": "TRX Side Plank",
+    "mechanic": "isolation",
+    "equipment_tier": "trx",
+    "primary_muscle": "obliques",
+    "secondary_muscles": ["core"],
+    "body_part": "core",
+    "difficulty": 3,
+    "gif": "trx_side_plank.gif"
+  },
+  {
+    "id": "trx_suspended_lunge",
+    "name": "TRX Suspended Lunge",
+    "mechanic": "compound",
+    "equipment_tier": "trx",
+    "primary_muscle": "quadriceps",
+    "secondary_muscles": ["glutes", "balance"],
+    "body_part": "legs",
+    "difficulty": 4,
+    "gif": "trx_suspended_lunge.gif"
+  },
+  # Kettlebell Exercises
+  {
+    "id": "kettlebell_goblet_squat",
+    "name": "Kettlebell Goblet Squat",
+    "mechanic": "compound",
+    "equipment_tier": "kettlebell",
+    "primary_muscle": "quadriceps",
+    "secondary_muscles": ["glutes", "core"],
+    "body_part": "legs",
+    "difficulty": 2,
+    "gif": "kettlebell_goblet_squat.gif"
+  },
+  {
+    "id": "kettlebell_swing",
+    "name": "Kettlebell Swing",
+    "mechanic": "compound",
+    "equipment_tier": "kettlebell",
+    "primary_muscle": "hamstrings",
+    "secondary_muscles": ["glutes", "lower_back"],
+    "body_part": "legs",
+    "difficulty": 2,
+    "gif": "kettlebell_swing.gif"
+  },
+  {
+    "id": "kettlebell_snatch",
+    "name": "Kettlebell Snatch",
+    "mechanic": "compound",
+    "equipment_tier": "kettlebell",
+    "primary_muscle": "full_body",
+    "secondary_muscles": ["shoulders", "hamstrings"],
+    "body_part": "full_body",
+    "difficulty": 4,
+    "gif": "kettlebell_snatch.gif"
+  },
+  {
+    "id": "kettlebell_clean_and_press",
+    "name": "Kettlebell Clean and Press",
+    "mechanic": "compound",
+    "equipment_tier": "kettlebell",
+    "primary_muscle": "shoulders",
+    "secondary_muscles": ["legs", "triceps"],
+    "body_part": "full_body",
+    "difficulty": 3,
+    "gif": "kettlebell_clean_and_press.gif"
+  },
+  {
+    "id": "kettlebell_windmill",
+    "name": "Kettlebell Windmill",
+    "mechanic": "compound",
+    "equipment_tier": "kettlebell",
+    "primary_muscle": "obliques",
+    "secondary_muscles": ["shoulders", "hamstrings"],
+    "body_part": "core",
+    "difficulty": 3,
+    "gif": "kettlebell_windmill.gif"
+  },
+  {
+    "id": "kettlebell_turkish_get_up",
+    "name": "Turkish Get Up",
+    "mechanic": "compound",
+    "equipment_tier": "kettlebell",
+    "primary_muscle": "full_body",
+    "secondary_muscles": ["shoulders", "core"],
+    "body_part": "full_body",
+    "difficulty": 5,
+    "gif": "kettlebell_turkish_get_up.gif"
+  },
+  {
+    "id": "kettlebell_halo",
+    "name": "Kettlebell Halo",
+    "mechanic": "isolation",
+    "equipment_tier": "kettlebell",
+    "primary_muscle": "shoulders",
+    "secondary_muscles": ["triceps", "core"],
+    "body_part": "upper_body",
+    "difficulty": 2,
+    "gif": "kettlebell_halo.gif"
+  },
+  {
+    "id": "kettlebell_deadlift",
+    "name": "Kettlebell Deadlift",
+    "mechanic": "compound",
+    "equipment_tier": "kettlebell",
+    "primary_muscle": "hamstrings",
+    "secondary_muscles": ["glutes", "lower_back"],
+    "body_part": "legs",
+    "difficulty": 1,
+    "gif": "kettlebell_deadlift.gif"
+  },
+  {
+    "id": "kettlebell_lunge",
+    "name": "Kettlebell Lunge",
+    "mechanic": "compound",
+    "equipment_tier": "kettlebell",
+    "primary_muscle": "quadriceps",
+    "secondary_muscles": ["glutes"],
+    "body_part": "legs",
+    "difficulty": 2,
+    "gif": "kettlebell_lunge.gif"
+  },
+  {
+    "id": "kettlebell_row",
+    "name": "Kettlebell Row",
+    "mechanic": "compound",
+    "equipment_tier": "kettlebell",
+    "primary_muscle": "back",
+    "secondary_muscles": ["biceps"],
+    "body_part": "upper_body",
+    "difficulty": 2,
+    "gif": "kettlebell_row.gif"
+  },
+  # Yoga & Mobility
+  {
+    "id": "downward_dog",
+    "name": "Downward Dog",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "hamstrings",
+    "secondary_muscles": ["shoulders", "calves"],
+    "body_part": "full_body",
+    "difficulty": 1,
+    "gif": "downward_dog.gif"
+  },
+  {
+    "id": "upward_dog",
+    "name": "Upward Dog",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "lower_back",
+    "secondary_muscles": ["abs", "chest"],
+    "body_part": "core",
+    "difficulty": 1,
+    "gif": "upward_dog.gif"
+  },
+  {
+    "id": "warrior_one",
+    "name": "Warrior I",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "quadriceps",
+    "secondary_muscles": ["shoulders", "core"],
+    "body_part": "legs",
+    "difficulty": 2,
+    "gif": "warrior_one.gif"
+  },
+  {
+    "id": "warrior_two",
+    "name": "Warrior II",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "quadriceps",
+    "secondary_muscles": ["shoulders", "hips"],
+    "body_part": "legs",
+    "difficulty": 2,
+    "gif": "warrior_two.gif"
+  },
+  {
+    "id": "triangle_pose",
+    "name": "Triangle Pose",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "hamstrings",
+    "secondary_muscles": ["obliques"],
+    "body_part": "legs",
+    "difficulty": 2,
+    "gif": "triangle_pose.gif"
+  },
+  {
+    "id": "cobra_pose",
+    "name": "Cobra Pose",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "lower_back",
+    "secondary_muscles": ["chest"],
+    "body_part": "core",
+    "difficulty": 1,
+    "gif": "cobra_pose.gif"
+  },
+  {
+    "id": "worlds_greatest_stretch",
+    "name": "World's Greatest Stretch",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "hip_flexors",
+    "secondary_muscles": ["hamstrings", "thoracic_spine"],
+    "body_part": "full_body",
+    "difficulty": 2,
+    "gif": "worlds_greatest_stretch.gif"
+  },
+  {
+    "id": "butterfly_stretch",
+    "name": "Butterfly Stretch",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "adductors",
+    "secondary_muscles": [],
+    "body_part": "legs",
+    "difficulty": 1,
+    "gif": "butterfly_stretch.gif"
+  },
+  {
+    "id": "figure_four_stretch",
+    "name": "Figure Four Stretch",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "glutes",
+    "secondary_muscles": ["hips"],
+    "body_part": "legs",
+    "difficulty": 1,
+    "gif": "figure_four_stretch.gif"
+  },
+  {
+    "id": "standing_forward_fold",
+    "name": "Standing Forward Fold",
+    "mechanic": "stretching",
+    "equipment_tier": "home",
+    "primary_muscle": "hamstrings",
+    "secondary_muscles": ["lower_back"],
+    "body_part": "legs",
+    "difficulty": 1,
+    "gif": "standing_forward_fold.gif"
+  },
+  # Gym Machines (Isolation)
+  {
+    "id": "leg_extension",
+    "name": "Leg Extension",
+    "mechanic": "isolation",
+    "equipment_tier": "gym",
+    "primary_muscle": "quadriceps",
+    "secondary_muscles": [],
+    "body_part": "legs",
+    "difficulty": 1,
+    "gif": "leg_extension.gif"
+  },
+  {
+    "id": "leg_curl_machine",
+    "name": "Leg Curl Machine",
+    "mechanic": "isolation",
+    "equipment_tier": "gym",
+    "primary_muscle": "hamstrings",
+    "secondary_muscles": [],
+    "body_part": "legs",
+    "difficulty": 1,
+    "gif": "leg_curl_machine.gif"
+  },
+  {
+    "id": "pec_deck",
+    "name": "Pec Deck",
+    "mechanic": "isolation",
+    "equipment_tier": "gym",
+    "primary_muscle": "chest",
+    "secondary_muscles": ["shoulders"],
+    "body_part": "upper_body",
+    "difficulty": 1,
+    "gif": "pec_deck.gif"
+  },
+  {
+    "id": "lat_pulldown_machine",
+    "name": "Lat Pulldown Machine",
+    "mechanic": "compound",
+    "equipment_tier": "gym",
+    "primary_muscle": "lats",
+    "secondary_muscles": ["biceps"],
+    "body_part": "upper_body",
+    "difficulty": 1,
+    "gif": "lat_pulldown_machine.gif"
+  },
+  {
+    "id": "cable_crossover",
+    "name": "Cable Crossover",
+    "mechanic": "isolation",
+    "equipment_tier": "gym",
+    "primary_muscle": "chest",
+    "secondary_muscles": ["shoulders"],
+    "body_part": "upper_body",
+    "difficulty": 2,
+    "gif": "cable_crossover.gif"
+  },
+  {
+    "id": "cable_tricep_pushdown",
+    "name": "Cable Tricep Pushdown",
+    "mechanic": "isolation",
+    "equipment_tier": "gym",
+    "primary_muscle": "triceps",
+    "secondary_muscles": [],
+    "body_part": "upper_body",
+    "difficulty": 1,
+    "gif": "cable_tricep_pushdown.gif"
+  },
+  {
+    "id": "cable_bicep_curl",
+    "name": "Cable Bicep Curl",
+    "mechanic": "isolation",
+    "equipment_tier": "gym",
+    "primary_muscle": "biceps",
+    "secondary_muscles": [],
+    "body_part": "upper_body",
+    "difficulty": 1,
+    "gif": "cable_bicep_curl.gif"
+  },
+  {
+    "id": "cable_face_pull",
+    "name": "Cable Face Pull",
+    "mechanic": "isolation",
+    "equipment_tier": "gym",
+    "primary_muscle": "rear_delts",
+    "secondary_muscles": ["upper_back"],
+    "body_part": "upper_body",
+    "difficulty": 2,
+    "gif": "cable_face_pull.gif"
+  },
+  {
+    "id": "seated_row_machine",
+    "name": "Seated Row Machine",
+    "mechanic": "compound",
+    "equipment_tier": "gym",
+    "primary_muscle": "back",
+    "secondary_muscles": ["biceps"],
+    "body_part": "upper_body",
+    "difficulty": 1,
+    "gif": "seated_row_machine.gif"
+  },
+  {
+    "id": "leg_press",
+    "name": "Leg Press",
+    "mechanic": "compound",
+    "equipment_tier": "gym",
+    "primary_muscle": "quadriceps",
+    "secondary_muscles": ["glutes", "hamstrings"],
+    "body_part": "legs",
+    "difficulty": 2,
+    "gif": "leg_press.gif"
+  },
+  # Cardio & HIIT
+  {
+    "id": "assault_bike",
+    "name": "Assault Bike",
+    "mechanic": "cardio",
+    "equipment_tier": "gym",
+    "primary_muscle": "full_body",
+    "secondary_muscles": ["quadriceps", "shoulders"],
+    "body_part": "full_body",
+    "difficulty": 2,
+    "gif": "assault_bike.gif"
+  },
+  {
+    "id": "rowing_machine",
+    "name": "Rowing Machine",
+    "mechanic": "cardio",
+    "equipment_tier": "gym",
+    "primary_muscle": "full_body",
+    "secondary_muscles": ["back", "legs"],
+    "body_part": "full_body",
+    "difficulty": 2,
+    "gif": "rowing_machine.gif"
+  },
+  {
+    "id": "skierg",
+    "name": "SkiErg",
+    "mechanic": "cardio",
+    "equipment_tier": "gym",
+    "primary_muscle": "full_body",
+    "secondary_muscles": ["lats", "triceps", "core"],
+    "body_part": "full_body",
+    "difficulty": 2,
+    "gif": "skierg.gif"
+  },
+  {
+    "id": "box_jumps",
+    "name": "Box Jumps",
+    "mechanic": "plyometric",
+    "equipment_tier": "gym",
+    "primary_muscle": "legs",
+    "secondary_muscles": ["glutes"],
+    "body_part": "legs",
+    "difficulty": 3,
+    "gif": "box_jumps.gif"
+  },
+  {
+    "id": "battle_ropes",
+    "name": "Battle Ropes",
+    "mechanic": "cardio",
+    "equipment_tier": "gym",
+    "primary_muscle": "shoulders",
+    "secondary_muscles": ["core", "arms"],
+    "body_part": "upper_body",
+    "difficulty": 3,
+    "gif": "battle_ropes.gif"
+  },
+  {
+    "id": "sled_push",
+    "name": "Sled Push",
+    "mechanic": "compound",
+    "equipment_tier": "gym",
+    "primary_muscle": "legs",
+    "secondary_muscles": ["glutes", "calves"],
+    "body_part": "legs",
+    "difficulty": 4,
+    "gif": "sled_push.gif"
+  },
+  {
+    "id": "jump_rope",
+    "name": "Jump Rope",
+    "mechanic": "cardio",
+    "equipment_tier": "home",
+    "primary_muscle": "calves",
+    "secondary_muscles": ["shoulders"],
+    "body_part": "legs",
+    "difficulty": 2,
+    "gif": "jump_rope.gif"
+  },
+  # Olympic & Power
+  {
+    "id": "power_clean",
+    "name": "Power Clean",
+    "mechanic": "compound",
+    "equipment_tier": "barbell",
+    "primary_muscle": "full_body",
+    "secondary_muscles": ["hamstrings", "traps"],
+    "body_part": "full_body",
+    "difficulty": 5,
+    "gif": "power_clean.gif"
+  },
+  {
+    "id": "hang_clean",
+    "name": "Hang Clean",
+    "mechanic": "compound",
+    "equipment_tier": "barbell",
+    "primary_muscle": "full_body",
+    "secondary_muscles": ["hamstrings", "traps"],
+    "body_part": "full_body",
+    "difficulty": 4,
+    "gif": "hang_clean.gif"
+  },
+  {
+    "id": "front_squat",
+    "name": "Front Squat",
+    "mechanic": "compound",
+    "equipment_tier": "barbell",
+    "primary_muscle": "quadriceps",
+    "secondary_muscles": ["glutes", "core"],
+    "body_part": "legs",
+    "difficulty": 4,
+    "gif": "front_squat.gif"
+  },
+  {
+    "id": "deficit_deadlift",
+    "name": "Deficit Deadlift",
+    "mechanic": "compound",
+    "equipment_tier": "barbell",
+    "primary_muscle": "hamstrings",
+    "secondary_muscles": ["glutes", "lower_back"],
+    "body_part": "legs",
+    "difficulty": 4,
+    "gif": "deficit_deadlift.gif"
+  },
+  {
+    "id": "sumo_deadlift",
+    "name": "Sumo Deadlift",
+    "mechanic": "compound",
+    "equipment_tier": "barbell",
+    "primary_muscle": "hamstrings",
+    "secondary_muscles": ["glutes", "adductors"],
+    "body_part": "legs",
+    "difficulty": 4,
+    "gif": "sumo_deadlift.gif"
+  },
+  {
+    "id": "push_press",
+    "name": "Push Press",
+    "mechanic": "compound",
+    "equipment_tier": "barbell",
+    "primary_muscle": "shoulders",
+    "secondary_muscles": ["triceps", "legs"],
+    "body_part": "upper_body",
+    "difficulty": 4,
+    "gif": "push_press.gif"
+  }
+]
+
+# Print without the outer brackets to append to existing list
+json_str = json.dumps(exercises, indent=2)
+# Write to file with utf-8 encoding
+with open('temp_exercises.json', 'w', encoding='utf-8') as f:
+    f.write(json_str[1:-1])
