@@ -387,6 +387,39 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noExercisesFound => 'No exercises found';
 
   @override
+  String get equipmentQuestion => 'What equipment do you have?';
+
+  @override
+  String get dumbbells => 'Dumbbells';
+
+  @override
+  String get resistanceBands => 'Resistance Bands';
+
+  @override
+  String get bothEquipment => 'Both';
+
+  @override
+  String get noEquipment => 'No Equipment';
+
+  @override
+  String get focusAreasQuestion => 'Which areas do you want to focus on?';
+
+  @override
+  String get selectUpTo3 => 'Select areas you want to focus on';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get arms => 'Arms';
+
+  @override
+  String get legs => 'Legs';
+
+  @override
+  String get core => 'Core';
+
+  @override
   String get chest => 'Chest';
 
   @override
@@ -442,4 +475,463 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get bands => 'Bands';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get bodyMeasurements => 'Body Measurements';
+
+  @override
+  String get progressTracking => 'Progress Tracking';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get yourName => 'Your Name';
+
+  @override
+  String get nameRequired => 'Name is required';
+
+  @override
+  String get gender => 'Gender';
+
+  @override
+  String get age => 'Age';
+
+  @override
+  String get yourAge => 'Your Age';
+
+  @override
+  String get years => 'years';
+
+  @override
+  String get height => 'Height';
+
+  @override
+  String get yourHeight => 'Your Height';
+
+  @override
+  String get cm => 'cm';
+
+  @override
+  String get targetWeight => 'Target Weight';
+
+  @override
+  String get yourTargetWeight => 'Your target weight';
+
+  @override
+  String get kg => 'kg';
+
+  @override
+  String get bmi => 'Body Mass Index (BMI)';
+
+  @override
+  String get unknown => 'Unknown';
+
+  @override
+  String get underweight => 'Underweight';
+
+  @override
+  String get normal => 'Normal';
+
+  @override
+  String get overweight => 'Overweight';
+
+  @override
+  String get obese => 'Obese';
+
+  @override
+  String get profileUpdated => 'Profile updated';
+
+  @override
+  String get measurements => 'Measurements';
+
+  @override
+  String get addNewMeasurement => 'Add New Measurement';
+
+  @override
+  String get weight => 'Weight';
+
+  @override
+  String get weightRequired => 'Weight (kg) *';
+
+  @override
+  String get chestMeasurement => 'Chest (cm)';
+
+  @override
+  String get waistMeasurement => 'Waist (cm)';
+
+  @override
+  String get hipsMeasurement => 'Hips (cm)';
+
+  @override
+  String get armsMeasurement => 'Arms (cm)';
+
+  @override
+  String get thighsMeasurement => 'Thighs (cm)';
+
+  @override
+  String get notes => 'Notes';
+
+  @override
+  String get currentWeight => 'Current Weight';
+
+  @override
+  String get firstMeasurement => 'First measurement';
+
+  @override
+  String get weightChart => 'Weight Chart';
+
+  @override
+  String get measurementHistory => 'Measurement History';
+
+  @override
+  String get noMeasurementsYet => 'No measurements yet';
+
+  @override
+  String get addFirstMeasurement =>
+      'Add your first measurement to track progress';
+
+  @override
+  String get measurementAdded => 'Measurement added';
+
+  @override
+  String get thisFieldRequired => 'This field is required';
+
+  @override
+  String get fitnessScore => 'Your Fitness Score';
+
+  @override
+  String get totalWorkouts => 'Total';
+
+  @override
+  String get workouts => 'Workouts';
+
+  @override
+  String get currentStreak => 'Streak';
+
+  @override
+  String get totalVolume => 'Volume';
+
+  @override
+  String get averageTime => 'Average';
+
+  @override
+  String get weeklyActivity => 'Weekly Activity';
+
+  @override
+  String get achievements => 'Achievements';
+
+  @override
+  String get achievementsUnlocked => 'Achievements Unlocked';
+
+  @override
+  String get earnedAchievements => 'Earned Achievements';
+
+  @override
+  String get unlocked => 'Unlocked!';
+
+  @override
+  String get notUnlockedYet => 'Not unlocked yet';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get unlockedOn => 'Unlocked on:';
+
+  @override
+  String get scoreLegend => 'Legend';
+
+  @override
+  String get scoreGreat => 'Great';
+
+  @override
+  String get scoreGood => 'Good';
+
+  @override
+  String get scoreBeginner => 'Beginner';
+
+  @override
+  String get scoreKeepGoing => 'Keep Going';
+
+  @override
+  String get dayMon => 'Mon';
+
+  @override
+  String get dayTue => 'Tue';
+
+  @override
+  String get dayWed => 'Wed';
+
+  @override
+  String get dayThu => 'Thu';
+
+  @override
+  String get dayFri => 'Fri';
+
+  @override
+  String get daySat => 'Sat';
+
+  @override
+  String get daySun => 'Sun';
+
+  @override
+  String get streakDays => 'Day Streak';
+
+  @override
+  String get streakDaysPlural => 'Day Streak';
+
+  @override
+  String get startYourStreak => 'Start Your Streak!';
+
+  @override
+  String get bestStreak => 'Best';
+
+  @override
+  String get workoutTodayKeepStreak => 'Workout today to keep your streak!';
+
+  @override
+  String get nextMilestone => 'Next milestone';
+
+  @override
+  String get completeWorkoutStartStreak =>
+      'Complete a workout to start your streak!';
+
+  @override
+  String get level => 'Level';
+
+  @override
+  String get xp => 'XP';
+
+  @override
+  String get totalWorkoutsCount => 'workouts';
+
+  @override
+  String get totalPRsCount => 'PRs';
+
+  @override
+  String get personalRecord => 'Personal Record';
+
+  @override
+  String get newPersonalRecord => 'NEW PERSONAL RECORD!';
+
+  @override
+  String get pr => 'PR';
+
+  @override
+  String get lastWorkout => 'Last';
+
+  @override
+  String get lastTime => 'Last time';
+
+  @override
+  String get suggestion => 'Try';
+
+  @override
+  String get allSetsGoodForm => 'Complete all sets with good form';
+
+  @override
+  String get trackPerformance => 'Track your performance';
+
+  @override
+  String get tryMoreWeight => 'Try +2.5kg or +1 rep';
+
+  @override
+  String get maintainWeight => 'Great! Try to maintain';
+
+  @override
+  String get restWell => 'Rest well, you got this!';
+
+  @override
+  String get week => 'week';
+
+  @override
+  String get weeksPlural => 'weeks';
+
+  @override
+  String get month => 'month';
+
+  @override
+  String get monthsPlural => 'months';
+
+  @override
+  String get ago => 'ago';
+
+  @override
+  String get progress => 'Progress';
+
+  @override
+  String get notifications => 'Notifications';
+
+  @override
+  String get notificationSettings => 'Notification Settings';
+
+  @override
+  String get dailyReminder => 'Daily Workout Reminder';
+
+  @override
+  String get reminderTime => 'Reminder Time';
+
+  @override
+  String get streakWarnings => 'Streak Warnings';
+
+  @override
+  String get achievementNotifications => 'Achievement Notifications';
+
+  @override
+  String get restDayReminders => 'Rest Day Reminders';
+
+  @override
+  String get prCelebrations => 'Personal Record Celebrations';
+
+  @override
+  String get testNotification => 'Test Notification';
+
+  @override
+  String get notificationPermissionRequired =>
+      'Notification permission required';
+
+  @override
+  String get enableNotifications => 'Enable Notifications';
+
+  @override
+  String get notifDailyWorkoutTitle => 'Time to Workout! 💪';
+
+  @override
+  String get notifDailyWorkoutBody =>
+      'Your workout is waiting for you. Let\'s keep that streak going!';
+
+  @override
+  String get notifStreakWarningTitle => 'Don\'t Break Your Streak! 🔥';
+
+  @override
+  String notifStreakWarningBody(Object streak) {
+    return 'You have a $streak day streak! Complete a quick workout to keep it alive.';
+  }
+
+  @override
+  String get notifAchievementTitle => 'Achievement Unlocked! 🏆';
+
+  @override
+  String get notifPRTitle => 'New Personal Record! 🎉';
+
+  @override
+  String notifPRBody(Object exercise, Object reps, Object weight) {
+    return 'You just hit a PR on $exercise! ${weight}kg x $reps reps';
+  }
+
+  @override
+  String get notifRestDayTitle => 'Rest Day ';
+
+  @override
+  String get notifRestDayBody =>
+      'Recovery is crucial! Take it easy today and come back stronger.';
+
+  @override
+  String get notifWeeklySummaryTitle => 'Weekly Summary 📊';
+
+  @override
+  String notifWeeklySummaryBody(Object count) {
+    return 'You completed $count workouts this week! Check your progress.';
+  }
+
+  @override
+  String get exerciseDetail => 'Exercise Detail';
+
+  @override
+  String get howToDoIt => 'How To Do It';
+
+  @override
+  String get tips => 'Tips';
+
+  @override
+  String get commonMistakes => 'Common Mistakes';
+
+  @override
+  String get musclesWorked => 'Muscles Worked';
+
+  @override
+  String get primaryMuscle => 'Primary';
+
+  @override
+  String get secondaryMuscle => 'Secondary';
+
+  @override
+  String get watchVideo => 'Watch Video';
+
+  @override
+  String get detailedInstructionsComingSoon =>
+      'Detailed instructions coming soon!';
+
+  @override
+  String get restTime => 'Rest Time';
+
+  @override
+  String get restTimer => 'Rest Timer';
+
+  @override
+  String get selectRestDuration => 'Select Rest Duration';
+
+  @override
+  String get customDuration => 'Custom';
+
+  @override
+  String get seconds => 'seconds';
+
+  @override
+  String get addTime => '+15s';
+
+  @override
+  String get removeTime => '-15s';
+
+  @override
+  String get skipRest => 'Skip Rest';
+
+  @override
+  String get startRest => 'Start Rest';
+
+  @override
+  String get restComplete => 'Rest Complete!';
+
+  @override
+  String get readyForNextSet => 'Ready for next set';
+
+  @override
+  String get waterIntake => 'Water Intake';
+
+  @override
+  String get dailyWaterGoal => 'Daily Goal';
+
+  @override
+  String get waterGoal => 'Water Goal';
+
+  @override
+  String get glasses => 'glasses';
+
+  @override
+  String get addGlass => 'Add Glass';
+
+  @override
+  String get setGoal => 'Set Goal';
+
+  @override
+  String get goalReached => 'Goal Reached!';
+
+  @override
+  String get remaining => 'Remaining';
+
+  @override
+  String get consumed => 'Consumed';
+
+  @override
+  String get ml => 'ml';
+
+  @override
+  String get liters => 'L';
+
+  @override
+  String get settings => 'Settings';
 }

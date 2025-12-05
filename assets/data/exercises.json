@@ -2362,19 +2362,6 @@
     "gif": "star_jumps.gif"
   },
   {
-    "id": "seal_jacks",
-    "name": "Seal Jacks",
-    "mechanic": "cardio",
-    "equipment_tier": "home",
-    "primary_muscle": "full_body",
-    "secondary_muscles": [
-      "shoulders"
-    ],
-    "body_part": "full_body",
-    "difficulty": 1,
-    "gif": "seal_jacks.gif"
-  },
-  {
     "id": "hamstring_stretch",
     "name": "Hamstring Stretch",
     "mechanic": "stretching",
@@ -2480,19 +2467,6 @@
     "body_part": "upper_body",
     "difficulty": 1,
     "gif": "chest_stretch.gif"
-  },
-  {
-    "id": "seated_spinal_twist",
-    "name": "Seated Spinal Twist",
-    "mechanic": "stretching",
-    "equipment_tier": "home",
-    "primary_muscle": "obliques",
-    "secondary_muscles": [
-      "lower_back"
-    ],
-    "body_part": "core",
-    "difficulty": 1,
-    "gif": "seated_spinal_twist.gif"
   },
   {
     "id": "band_pull_apart",
@@ -2747,20 +2721,6 @@
     "gif": "banded_front_raise.gif"
   },
   {
-    "id": "trx_row",
-    "name": "TRX Row",
-    "mechanic": "compound",
-    "equipment_tier": "trx",
-    "primary_muscle": "back",
-    "secondary_muscles": [
-      "biceps",
-      "core"
-    ],
-    "body_part": "upper_body",
-    "difficulty": 2,
-    "gif": "trx_row.gif"
-  },
-  {
     "id": "trx_push_up",
     "name": "TRX Push Up",
     "mechanic": "compound",
@@ -2775,19 +2735,6 @@
     "gif": "trx_push_up.gif"
   },
   {
-    "id": "trx_squat",
-    "name": "TRX Squat",
-    "mechanic": "compound",
-    "equipment_tier": "trx",
-    "primary_muscle": "quadriceps",
-    "secondary_muscles": [
-      "glutes"
-    ],
-    "body_part": "legs",
-    "difficulty": 1,
-    "gif": "trx_squat.gif"
-  },
-  {
     "id": "trx_pistol_squat",
     "name": "TRX Pistol Squat",
     "mechanic": "compound",
@@ -2800,19 +2747,6 @@
     "body_part": "legs",
     "difficulty": 4,
     "gif": "trx_pistol_squat.gif"
-  },
-  {
-    "id": "trx_lunge",
-    "name": "TRX Lunge",
-    "mechanic": "compound",
-    "equipment_tier": "trx",
-    "primary_muscle": "quadriceps",
-    "secondary_muscles": [
-      "glutes"
-    ],
-    "body_part": "legs",
-    "difficulty": 2,
-    "gif": "trx_lunge.gif"
   },
   {
     "id": "trx_hamstring_curl",
@@ -2841,19 +2775,6 @@
     "gif": "trx_chest_fly.gif"
   },
   {
-    "id": "trx_y_fly",
-    "name": "TRX Y Fly",
-    "mechanic": "isolation",
-    "equipment_tier": "trx",
-    "primary_muscle": "shoulders",
-    "secondary_muscles": [
-      "upper_back"
-    ],
-    "body_part": "upper_body",
-    "difficulty": 3,
-    "gif": "trx_y_fly.gif"
-  },
-  {
     "id": "trx_bicep_curl",
     "name": "TRX Bicep Curl",
     "mechanic": "isolation",
@@ -2876,19 +2797,6 @@
     "gif": "trx_tricep_extension.gif"
   },
   {
-    "id": "trx_plank",
-    "name": "TRX Plank",
-    "mechanic": "isolation",
-    "equipment_tier": "trx",
-    "primary_muscle": "core",
-    "secondary_muscles": [
-      "shoulders"
-    ],
-    "body_part": "core",
-    "difficulty": 3,
-    "gif": "trx_plank.gif"
-  },
-  {
     "id": "trx_mountain_climber",
     "name": "TRX Mountain Climber",
     "mechanic": "compound",
@@ -2900,114 +2808,6 @@
     "body_part": "core",
     "difficulty": 3,
     "gif": "trx_mountain_climber.gif"
-  },
-  {
-    "id": "trx_pike",
-    "name": "TRX Pike",
-    "mechanic": "compound",
-    "equipment_tier": "trx",
-    "primary_muscle": "core",
-    "secondary_muscles": [
-      "shoulders"
-    ],
-    "body_part": "core",
-    "difficulty": 4,
-    "gif": "trx_pike.gif"
-  },
-  {
-    "id": "trx_atomic_push_up",
-    "name": "TRX Atomic Push Up",
-    "mechanic": "compound",
-    "equipment_tier": "trx",
-    "primary_muscle": "chest",
-    "secondary_muscles": [
-      "core",
-      "triceps"
-    ],
-    "body_part": "full_body",
-    "difficulty": 5,
-    "gif": "trx_atomic_push_up.gif"
-  },
-  {
-    "id": "trx_power_pull",
-    "name": "TRX Power Pull",
-    "mechanic": "compound",
-    "equipment_tier": "trx",
-    "primary_muscle": "back",
-    "secondary_muscles": [
-      "obliques",
-      "shoulders"
-    ],
-    "body_part": "upper_body",
-    "difficulty": 3,
-    "gif": "trx_power_pull.gif"
-  },
-  {
-    "id": "trx_alligator",
-    "name": "TRX Alligator",
-    "mechanic": "compound",
-    "equipment_tier": "trx",
-    "primary_muscle": "shoulders",
-    "secondary_muscles": [
-      "core"
-    ],
-    "body_part": "upper_body",
-    "difficulty": 3,
-    "gif": "trx_alligator.gif"
-  },
-  {
-    "id": "trx_clock_press",
-    "name": "TRX Clock Press",
-    "mechanic": "compound",
-    "equipment_tier": "trx",
-    "primary_muscle": "chest",
-    "secondary_muscles": [
-      "shoulders",
-      "core"
-    ],
-    "body_part": "upper_body",
-    "difficulty": 4,
-    "gif": "trx_clock_press.gif"
-  },
-  {
-    "id": "trx_hip_press",
-    "name": "TRX Hip Press",
-    "mechanic": "isolation",
-    "equipment_tier": "trx",
-    "primary_muscle": "glutes",
-    "secondary_muscles": [
-      "hamstrings"
-    ],
-    "body_part": "legs",
-    "difficulty": 2,
-    "gif": "trx_hip_press.gif"
-  },
-  {
-    "id": "trx_side_plank",
-    "name": "TRX Side Plank",
-    "mechanic": "isolation",
-    "equipment_tier": "trx",
-    "primary_muscle": "obliques",
-    "secondary_muscles": [
-      "core"
-    ],
-    "body_part": "core",
-    "difficulty": 3,
-    "gif": "trx_side_plank.gif"
-  },
-  {
-    "id": "trx_suspended_lunge",
-    "name": "TRX Suspended Lunge",
-    "mechanic": "compound",
-    "equipment_tier": "trx",
-    "primary_muscle": "quadriceps",
-    "secondary_muscles": [
-      "glutes",
-      "balance"
-    ],
-    "body_part": "legs",
-    "difficulty": 4,
-    "gif": "trx_suspended_lunge.gif"
   },
   {
     "id": "kettlebell_goblet_squat",
@@ -3146,20 +2946,6 @@
     "body_part": "full_body",
     "difficulty": 1,
     "gif": "downward_dog.gif"
-  },
-  {
-    "id": "upward_dog",
-    "name": "Upward Dog",
-    "mechanic": "stretching",
-    "equipment_tier": "home",
-    "primary_muscle": "lower_back",
-    "secondary_muscles": [
-      "abs",
-      "chest"
-    ],
-    "body_part": "core",
-    "difficulty": 1,
-    "gif": "upward_dog.gif"
   },
   {
     "id": "warrior_one",

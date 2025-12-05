@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gym_genius/widgets/glass_container.dart';
+import 'package:gym_genius/widgets/glass_card.dart';
 
 void main() {
   group('GlassContainer Widget', () {

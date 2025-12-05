@@ -145,7 +145,7 @@ class _CreateProgramSetupScreenState extends State<CreateProgramSetupScreen> {
                             decoration: BoxDecoration(
                               gradient: AppTheme.secondaryGradient,
                               borderRadius: BorderRadius.circular(12),
-                              boxShadow: AppTheme.glowShadow(AppTheme.secondaryCyan),
+                              boxShadow: AppTheme.neonShadow(AppTheme.secondaryCyan),
                             ),
                             child: Text(
                               "${_days.toInt()} ${strings.days}",

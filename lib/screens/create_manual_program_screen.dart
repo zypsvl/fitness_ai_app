@@ -316,7 +316,7 @@ class _CreateManualProgramScreenState extends State<CreateManualProgramScreen> {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.delete, color: Colors.red, size: 20),
+            icon: const Icon(Icons.delete, color: Colors.redAccent, size: 20),
             onPressed: () {
               setState(() {
                 (_days[dayIndex]['exercises'] as List).removeAt(exIndex);
@@ -449,9 +449,9 @@ class _CreateManualProgramScreenState extends State<CreateManualProgramScreen> {
       
       if (!hasExercises) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Her güne en az bir egzersiz eklemelisiniz'),
-            backgroundColor: Colors.orange,
+          SnackBar(
+            content: const Text('Her güne en az bir egzersiz eklemelisiniz'),
+            backgroundColor: AppTheme.accentOrange,
           ),
         );
         return;
@@ -492,11 +492,8 @@ class _CreateManualProgramScreenState extends State<CreateManualProgramScreen> {
     // Update provider
     provider.updateWeeklyPlan(weeklyPlan);
     
-    // Navigate to result screen
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const ResultScreen()),
-    );
+    // Navigate to home screen
+    Navigator.popUntil(context, (route) => route.isFirst);
     
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

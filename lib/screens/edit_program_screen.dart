@@ -96,7 +96,7 @@ class _EditProgramScreenState extends State<EditProgramScreen> {
     final result = await showDialog<Map<String, String>>(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF1A1F38),
+        backgroundColor: AppTheme.surfaceDark,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -192,7 +192,7 @@ class _EditProgramScreenState extends State<EditProgramScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF1A1F38),
+        backgroundColor: AppTheme.surfaceDark,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -266,7 +266,7 @@ class _EditProgramScreenState extends State<EditProgramScreen> {
     final result = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF1A1F38),
+        backgroundColor: AppTheme.surfaceDark,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),

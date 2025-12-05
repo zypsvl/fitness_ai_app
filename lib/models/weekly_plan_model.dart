@@ -8,24 +8,27 @@ class WorkoutDay {
   final String dayName;
   final String focus;
   final List<ScheduledExercise> exercises;
+  final bool isRestDay;
 
   WorkoutDay({
     required this.dayName,
     required this.focus,
     required this.exercises,
+    this.isRestDay = false,
   });
 
   factory WorkoutDay.fromJson(
     Map<String, dynamic> json,
     List<Exercise> allExercises,
   ) {
-    var list = json['exercises'] as List;
+    bool isRest = json['is_rest_day'] == true;
+    var list = (json['exercises'] as List?) ?? [];
 
     return WorkoutDay(
       dayName: json['day'] ?? "Gün",
-      focus: json['focus'] ?? "Genel",
-      exercises:
-          list.map((e) => ScheduledExercise.fromJson(e, allExercises)).toList(),
+      focus: json['focus'] ?? (isRest ? "Dinlenme" : "Genel"),
+      exercises: isRest ? [] : list.map((e) => ScheduledExercise.fromJson(e, allExercises)).toList(),
+      isRestDay: isRest,
     );
   }
 }

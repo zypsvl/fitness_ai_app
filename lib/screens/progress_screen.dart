@@ -8,6 +8,7 @@ import '../widgets/animated_gradient_background.dart';
 import '../widgets/glass_container.dart';
 import '../widgets/progress_calendar_widget.dart';
 import '../theme_config.dart';
+import '../utils/app_strings.dart';
 
 class ProgressScreen extends StatefulWidget {
   final String? programId;
@@ -25,6 +26,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
   Widget build(BuildContext context) {
     final provider = Provider.of<WorkoutProvider>(context);
     final theme = Theme.of(context);
+    final strings = AppStrings(context);
 
     // Get workout history
     final allWorkouts = provider.workoutHistory;
@@ -90,7 +92,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text('İlerleme'),
+        title: Text(strings.progress),
       ),
       body: AnimatedGradientBackground(
         child: SafeArea(
@@ -111,7 +113,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                         decoration: BoxDecoration(
                           gradient: AppTheme.primaryGradient,
                           shape: BoxShape.circle,
-                          boxShadow: AppTheme.glowShadow(
+                          boxShadow: AppTheme.neonShadow(
                             AppTheme.primaryPurple,
                             opacity: 0.4,
                           ),
@@ -127,16 +129,16 @@ class _ProgressScreenState extends State<ProgressScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Mevcut Seri',
-                              style: TextStyle(
+                            Text(
+                              strings.currentStreak,
+                              style: const TextStyle(
                                 color: Colors.white70,
                                 fontSize: 14,
                               ),
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              '$currentStreak Gün',
+                              '$currentStreak ${strings.days}',
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 32,
@@ -162,9 +164,9 @@ class _ProgressScreenState extends State<ProgressScreen> {
                   children: [
                     Expanded(
                       child: _buildStatCard(
-                        'Bu Hafta',
+                        strings.thisWeek,
                         '$weeklyCount',
-                        'Antrenman',
+                        strings.workouts,
                         Icons.calendar_today,
                         AppTheme.secondaryCyan,
                       ).animate(delay: 100.ms).fadeIn().scale(),
@@ -172,9 +174,9 @@ class _ProgressScreenState extends State<ProgressScreen> {
                     const SizedBox(width: 12),
                     Expanded(
                       child: _buildStatCard(
-                        'Bu Ay',
+                        strings.thisMonth,
                         '$monthlyCount',
-                        'Antrenman',
+                        strings.workouts,
                         Icons.calendar_month,
                         AppTheme.primaryPurple,
                       ).animate(delay: 200.ms).fadeIn().scale(),
@@ -188,9 +190,9 @@ class _ProgressScreenState extends State<ProgressScreen> {
                   children: [
                     Expanded(
                       child: _buildStatCard(
-                        'Toplam Set',
+                        strings.totalSets,
                         '$totalSets',
-                        'Bu Ay',
+                        strings.thisMonth,
                         Icons.fitness_center,
                         AppTheme.accentOrange,
                       ).animate(delay: 300.ms).fadeIn().scale(),
@@ -198,9 +200,9 @@ class _ProgressScreenState extends State<ProgressScreen> {
                     const SizedBox(width: 12),
                     Expanded(
                       child: _buildStatCard(
-                        'Hacim',
-                        '${totalVolume.toStringAsFixed(0)} kg',
-                        'Bu Ay',
+                        strings.totalVolume,
+                        '${totalVolume.toStringAsFixed(0)} ${strings.kg}',
+                        strings.thisMonth,
                         Icons.trending_up,
                         AppTheme.secondaryCyan,
                       ).animate(delay: 400.ms).fadeIn().scale(),
@@ -211,9 +213,9 @@ class _ProgressScreenState extends State<ProgressScreen> {
                 const SizedBox(height: 24),
 
                 // Calendar Section
-                const Text(
-                  'Antrenman Takvimi',
-                  style: TextStyle(
+                Text(
+                  strings.workoutCalendar,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -246,7 +248,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                             ),
                           ),
                           Text(
-                            '${_getMonthName(_currentMonth.month)} ${_currentMonth.year}',
+                            '${strings.getMonthName(_currentMonth.month)} ${_currentMonth.year}',
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -283,12 +285,12 @@ class _ProgressScreenState extends State<ProgressScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           _buildLegendItem(
-                            'Tamamlandı',
+                            strings.completedLabel,
                             AppTheme.secondaryCyan.withValues(alpha: 0.3),
                           ),
                           const SizedBox(width: 20),
                           _buildLegendItem(
-                            'Bugün',
+                            strings.today,
                             Colors.transparent,
                             borderColor: AppTheme.primaryPurple,
                           ),
@@ -302,9 +304,9 @@ class _ProgressScreenState extends State<ProgressScreen> {
 
                 // Recent Workouts
                 if (allWorkouts.isNotEmpty) ...[
-                  const Text(
-                    'Son Antrenmanlar',
-                    style: TextStyle(
+                  Text(
+                    strings.recentWorkouts,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -314,7 +316,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                   const SizedBox(height: 12),
 
                   ...allWorkouts.take(5).map((workout) {
-                    return _buildWorkoutCard(workout)
+                    return _buildWorkoutCard(workout, strings)
                         .animate(delay: 800.ms)
                         .fadeIn()
                         .slideX(begin: 0.2);
@@ -399,7 +401,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
     );
   }
 
-  Widget _buildWorkoutCard(WorkoutSession workout) {
+  Widget _buildWorkoutCard(WorkoutSession workout, AppStrings strings) {
     return GlassContainer(
       padding: const EdgeInsets.all(16),
       borderRadius: 16,
@@ -424,7 +426,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  workout.focus,
+                  strings.getBodyPart(workout.focus),
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -433,7 +435,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  '${workout.totalSets} set • ${workout.totalReps} tekrar',
+                  '${workout.totalSets} ${strings.set} • ${workout.totalReps} ${strings.rep}',
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.6),
                     fontSize: 12,
@@ -446,7 +448,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                _formatDate(workout.startTime),
+                _formatDate(workout.startTime, strings),
                 style: TextStyle(
                   color: AppTheme.secondaryCyan,
                   fontSize: 12,
@@ -455,7 +457,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
               ),
               const SizedBox(height: 4),
               Text(
-                _formatDuration(workout.duration),
+                _formatDuration(workout.duration, strings),
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.6),
                   fontSize: 11,
@@ -468,25 +470,17 @@ class _ProgressScreenState extends State<ProgressScreen> {
     );
   }
 
-  String _formatDate(DateTime date) {
+  String _formatDate(DateTime date, AppStrings strings) {
     final now = DateTime.now();
     final diff = now.difference(date).inDays;
 
-    if (diff == 0) return 'Bugün';
-    if (diff == 1) return 'Dün';
+    if (diff == 0) return strings.today;
+    if (diff == 1) return strings.yesterday;
     return '${date.day}/${date.month}/${date.year}';
   }
 
-  String _formatDuration(Duration duration) {
+  String _formatDuration(Duration duration, AppStrings strings) {
     final minutes = duration.inMinutes;
-    return '$minutes dk';
-  }
-
-  String _getMonthName(int month) {
-    const months = [
-      'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran',
-      'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
-    ];
-    return months[month - 1];
+    return '$minutes ${strings.minutes}';
   }
 }

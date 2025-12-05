@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../theme_config.dart';
 import '../services/notification_service.dart';
+import '../utils/app_strings.dart';
 
 class RestTimerWidget extends StatefulWidget {
   final int durationSeconds;
@@ -22,6 +24,7 @@ class RestTimerWidget extends StatefulWidget {
 
 class _RestTimerWidgetState extends State<RestTimerWidget> {
   late int _remainingSeconds;
+  late int _originalDuration;
   Timer? _timer;
   bool _isRunning = false;
 
@@ -29,6 +32,7 @@ class _RestTimerWidgetState extends State<RestTimerWidget> {
   void initState() {
     super.initState();
     _remainingSeconds = widget.durationSeconds;
+    _originalDuration = widget.durationSeconds;
     _startTimer();
   }
 
@@ -45,6 +49,11 @@ class _RestTimerWidgetState extends State<RestTimerWidget> {
         setState(() {
           _remainingSeconds--;
         });
+        
+        // Vibrate at 10 seconds and completion
+        if (_remainingSeconds == 10 || _remainingSeconds == 0) {
+          HapticFeedback.mediumImpact();
+        }
       } else {
         _timer?.cancel();
         setState(() {
@@ -73,6 +82,24 @@ class _RestTimerWidgetState extends State<RestTimerWidget> {
     widget.onSkip?.call();
   }
 
+  void _addTime() {
+    setState(() {
+      _remainingSeconds += 15;
+      _originalDuration += 15;
+    });
+    HapticFeedback.lightImpact();
+  }
+
+  void _removeTime() {
+    if (_remainingSeconds > 15) {
+      setState(() {
+        _remainingSeconds -= 15;
+        _originalDuration -= 15;
+      });
+      HapticFeedback.lightImpact();
+    }
+  }
+
   String _formatTime(int seconds) {
     final minutes = seconds ~/ 60;
     final secs = seconds % 60;
@@ -81,15 +108,25 @@ class _RestTimerWidgetState extends State<RestTimerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final progress = 1.0 - (_remainingSeconds / widget.durationSeconds);
-    final theme = Theme.of(context);
+    final progress = 1.0 - (_remainingSeconds / _originalDuration);
+    final strings = AppStrings(context);
+    final isWarning = _remainingSeconds <= 10 && _remainingSeconds > 0;
 
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: AppTheme.primaryGradient,
+        gradient: isWarning 
+            ? LinearGradient(
+                colors: [AppTheme.accentOrange, AppTheme.primaryPurple],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              )
+            : AppTheme.primaryGradient,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: AppTheme.glowShadow(AppTheme.primaryPurple, opacity: 0.4),
+        boxShadow: AppTheme.neonShadow(
+          isWarning ? AppTheme.accentOrange : AppTheme.primaryPurple,
+          opacity: 0.4,
+        ),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -99,16 +136,23 @@ class _RestTimerWidgetState extends State<RestTimerWidget> {
             Icons.timer,
             color: Colors.white,
             size: 32,
-          ).animate().scale(duration: 500.ms),
+          ).animate(
+            onPlay: (controller) => controller.repeat(),
+          ).scale(
+            duration: isWarning ? 500.ms : 1000.ms,
+            begin: const Offset(1, 1),
+            end: const Offset(1.1, 1.1),
+          ),
 
           const SizedBox(height: 12),
 
           // Rest label
           Text(
-            'DİNLENME',
-            style: theme.textTheme.titleSmall?.copyWith(
+            strings.restTimer.toUpperCase(),
+            style: const TextStyle(
               color: Colors.white70,
               letterSpacing: 2,
+              fontSize: 12,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -127,7 +171,7 @@ class _RestTimerWidgetState extends State<RestTimerWidget> {
                   strokeWidth: 8,
                   backgroundColor: Colors.white.withValues(alpha: 0.2),
                   valueColor: AlwaysStoppedAnimation<Color>(
-                    AppTheme.secondaryCyan,
+                    isWarning ? AppTheme.accentOrange : AppTheme.secondaryCyan,
                   ),
                 ),
               ),
@@ -143,7 +187,52 @@ class _RestTimerWidgetState extends State<RestTimerWidget> {
             ],
           ).animate().fadeIn().scale(delay: 100.ms),
 
-          const SizedBox(height: 24),
+          const SizedBox(height: 20),
+
+          // Quick adjust buttons (+15/-15)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                onPressed: _remainingSeconds > 15 ? _removeTime : null,
+                icon: const Icon(Icons.remove_circle_outline),
+                color: Colors.white,
+                iconSize: 28,
+                style: IconButton.styleFrom(
+                  backgroundColor: Colors.white.withValues(alpha: 0.2),
+                  disabledBackgroundColor: Colors.white.withValues(alpha: 0.1),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                strings.removeTime,
+                style: const TextStyle(
+                  color: Colors.white70,
+                  fontSize: 12,
+                ),
+              ),
+              const SizedBox(width: 24),
+              Text(
+                strings.addTime,
+                style: const TextStyle(
+                  color: Colors.white70,
+                  fontSize: 12,
+                ),
+              ),
+              const SizedBox(width: 8),
+              IconButton(
+                onPressed: _addTime,
+                icon: const Icon(Icons.add_circle_outline),
+                color: Colors.white,
+                iconSize: 28,
+                style: IconButton.styleFrom(
+                  backgroundColor: Colors.white.withValues(alpha: 0.2),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 20),
 
           // Controls
           Row(
@@ -169,9 +258,9 @@ class _RestTimerWidgetState extends State<RestTimerWidget> {
               ElevatedButton.icon(
                 onPressed: _skipTimer,
                 icon: const Icon(Icons.skip_next, color: Colors.white),
-                label: const Text(
-                  'Atla',
-                  style: TextStyle(
+                label: Text(
+                  strings.skip,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),

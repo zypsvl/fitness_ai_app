@@ -47,7 +47,7 @@ class MyProgramsScreen extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: AppTheme.primaryGradient,
             borderRadius: BorderRadius.circular(30),
-            boxShadow: AppTheme.glowShadow(AppTheme.primaryPurple, opacity: 0.5),
+            boxShadow: AppTheme.neonShadow(AppTheme.primaryPurple, opacity: 0.5),
           ),
           child: Row(
             children: [
@@ -113,7 +113,7 @@ class MyProgramsScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: AppTheme.secondaryGradient,
                 borderRadius: BorderRadius.circular(16),
-                boxShadow: AppTheme.glowShadow(AppTheme.secondaryCyan),
+                boxShadow: AppTheme.neonShadow(AppTheme.secondaryCyan),
               ),
               child: ElevatedButton.icon(
                 onPressed: () => _showCreateOptions(context),

@@ -13,6 +13,8 @@ abstract class AIService {
   /// - [daysAvailable]: Number of workout days per week (1-7)
   /// - [location]: Workout location ("Gym" or "Home")
   /// - [gender]: User's gender ("Male" or "Female")
+  /// - [equipment]: Equipment available (for home workouts): "dumbbells", "bands", "both", "none" (optional)
+  /// - [focusAreas]: List of muscle groups to prioritize (optional, max 3)
   /// 
   /// Returns a list of [WorkoutDay] objects representing the weekly plan
   /// Throws an [Exception] if the plan cannot be generated
@@ -23,5 +25,7 @@ abstract class AIService {
     int daysAvailable,
     String location,
     String gender,
+    String? equipment,
+    List<String>? focusAreas,
   );
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../models/saved_program_model.dart';
 import '../widgets/glass_container.dart';
+import '../widgets/glass_card.dart';
 import '../theme_config.dart';
 import '../utils/app_strings.dart';
 
@@ -39,7 +40,7 @@ class ProgramCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: AppTheme.primaryGradient,
                   borderRadius: BorderRadius.circular(12),
-                  boxShadow: AppTheme.glowShadow(
+                  boxShadow: AppTheme.neonShadow(
                     AppTheme.primaryPurple,
                     opacity: 0.3,
                   ),

@@ -5,6 +5,9 @@ import '../providers/workout_provider.dart';
 import '../widgets/animated_gradient_background.dart';
 import '../widgets/glass_container.dart';
 import '../widgets/premium_button.dart';
+import '../widgets/equipment_icon_card.dart';
+import '../widgets/anatomical_body_selector.dart';
+import '../widgets/glass_card.dart';
 import '../theme_config.dart';
 import '../utils/app_strings.dart';
 import 'result_screen.dart';
@@ -24,14 +27,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
   late AnimationController _progressController;
   late Animation<double> _progressAnimation;
 
-  // User Selections - using keys instead of localized strings
-  String _genderKey = 'male';  // 'male' or 'female'
-  String _goalKey = 'loseWeight';  // 'loseWeight', 'buildMuscle', 'getStronger', 'getFit'
-  String _levelKey = 'beginner';  // 'beginner', 'intermediate', 'advanced'
-  String _locationKey = 'gym';  // 'gym' or 'home'
+  // User Selections
+  String _genderKey = 'male';
+  String _goalKey = 'loseWeight';
+  String _levelKey = 'beginner';
+  String _locationKey = 'gym';
+  String? _equipmentKey;
+  Set<String> _focusAreasKeys = {};
   double _days = 3;
-
-  // Titles will be generated dynamically based on locale
+  
+  // Enhanced Onboarding
+  Set<String> _selectedEquipment = {};
+  String? _bodyType;
+  String? _experience;
+  Set<String> _injuries = {};
 
   @override
   void initState() {
@@ -40,7 +49,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-    _progressAnimation = Tween<double>(begin: 0.25, end: 0.25).animate(
+    _progressAnimation = Tween<double>(begin: 1/9, end: 1/9).animate(
       CurvedAnimation(parent: _progressController, curve: Curves.easeInOut),
     );
   }
@@ -53,11 +62,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
   }
 
   void _updateProgress(int page) {
-    setState(() {
+   setState(() {
       _currentPage = page;
+      const totalPages = 9;
       _progressAnimation = Tween<double>(
         begin: _progressAnimation.value,
-        end: (page + 1) / 4,
+        end: (page + 1) / totalPages,
       ).animate(
         CurvedAnimation(parent: _progressController, curve: Curves.easeInOut),
       );
@@ -75,16 +85,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
       strings.genderQuestion,
       strings.goalQuestion,
       strings.levelQuestion,
+      strings.equipmentSelectionTitle,
+      strings.selectFocusAreas,
+      strings.bodyTypeQuestion,
+      strings.experienceQuestion,
+      strings.injuryQuestion,
       strings.planDetailsTitle,
     ];
 
     return Scaffold(
       body: AnimatedGradientBackground(
-        colors: const [
-          Color(0xFF0A0E27),
-          Color(0xFF1A1F38),
-          Color(0xFF0F1229),
-        ],
         child: SafeArea(
           child: Column(
             children: [
@@ -93,37 +103,27 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
                 child: Row(
                   children: [
-                    if (_currentPage > 0)
-                      GlassContainer(
-                        borderRadius: 12,
-                        padding: const EdgeInsets.all(4),
-                        child: IconButton(
-                          icon: const Icon(Icons.arrow_back_ios_new, size: 20),
-                          onPressed: () {
+                    GlassContainer(
+                      borderRadius: 12,
+                      padding: const EdgeInsets.all(8),
+                      child: IconButton(
+                        icon: Icon(
+                          _currentPage > 0 ? Icons.arrow_back_ios_new : Icons.close,
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          if (_currentPage > 0) {
                             _pageController.previousPage(
                               duration: const Duration(milliseconds: 400),
                               curve: Curves.easeOutQuart,
                             );
-                          },
-                        ),
-                      )
-                    else
-                      GlassContainer(
-                        borderRadius: 12,
-                        padding: const EdgeInsets.all(4),
-                        child: IconButton(
-                          icon: const Icon(Icons.list_alt, size: 20),
-                          tooltip: strings.myPrograms,
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const MyProgramsScreen(),
-                              ),
-                            );
-                          },
-                        ),
+                          } else {
+                            Navigator.pop(context);
+                          }
+                        },
                       ),
+                    ),
                     
                     const SizedBox(width: 16),
                     
@@ -131,38 +131,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                       child: AnimatedBuilder(
                         animation: _progressAnimation,
                         builder: (context, child) {
-                          return GlassContainer(
-                            borderRadius: 10,
-                            padding: const EdgeInsets.all(4),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(6),
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    height: 8,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white.withValues(alpha: 0.1),
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                  ),
-                                  FractionallySizedBox(
-                                    widthFactor: _progressAnimation.value,
-                                    child: Container(
-                                      height: 8,
-                                      decoration: BoxDecoration(
-                                        gradient: AppTheme.secondaryGradient,
-                                        borderRadius: BorderRadius.circular(6),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: AppTheme.secondaryCyan.withValues(alpha: 0.5),
-                                            blurRadius: 10,
-                                            spreadRadius: 2,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                          return Container(
+                            height: 8,
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: FractionallySizedBox(
+                              alignment: Alignment.centerLeft,
+                              widthFactor: _progressAnimation.value,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  gradient: AppTheme.primaryGradient,
+                                  borderRadius: BorderRadius.circular(4),
+                                  boxShadow: AppTheme.neonShadow(AppTheme.primaryPurple),
+                                ),
                               ),
                             ),
                           );
@@ -171,10 +154,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                     ),
                     const SizedBox(width: 16),
                     Text(
-                      "${_currentPage + 1}/4",
-                      style: theme.textTheme.bodyMedium?.copyWith(
+                      "${_currentPage + 1}/9",
+                      style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: Colors.white70,
+                        color: Colors.white,
                       ),
                     ),
                   ],
@@ -183,7 +166,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
 
               // Title
               Padding(
-                padding: const EdgeInsets.only(bottom: 30, top: 20),
+                padding: const EdgeInsets.fromLTRB(24, 10, 24, 30),
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 300),
                   transitionBuilder: (child, animation) {
@@ -201,7 +184,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                   child: Text(
                     titles[_currentPage],
                     key: ValueKey<int>(_currentPage),
-                    style: theme.textTheme.displayLarge,
+                    style: theme.textTheme.displayMedium,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
@@ -216,6 +200,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                     _buildGenderPage(),
                     _buildGoalPage(),
                     _buildLevelPage(),
+                    _buildEnhancedEquipmentPage(),
+                    _buildAnatomicalFocusPage(),
+                    _buildBodyTypePage(),
+                    _buildExperiencePage(),
+                    _buildInjuryPage(),
                     _buildDetailsPage(provider),
                   ],
                 ),
@@ -252,10 +241,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
   Widget _buildGoalPage() {
     final strings = AppStrings(context);
     final goals = [
-      {'key': 'loseWeight', 'text': strings.loseWeight},
-      {'key': 'buildMuscle', 'text': strings.buildMuscle},
-      {'key': 'getStronger', 'text': strings.getStronger},
-      {'key': 'getFit', 'text': strings.getFit},
+      {'key': 'loseWeight', 'text': strings.loseWeight, 'icon': Icons.local_fire_department},
+      {'key': 'buildMuscle', 'text': strings.buildMuscle, 'icon': Icons.fitness_center},
+      {'key': 'getStronger', 'text': strings.getStronger, 'icon': Icons.flash_on},
+      {'key': 'getFit', 'text': strings.getFit, 'icon': Icons.favorite},
     ];
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -269,6 +258,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
             setState(() => _goalKey = goal['key'] as String);
             _nextPage();
           },
+          icon: goal['icon'] as IconData,
         ).animate().fadeIn(delay: (index * 100).ms).slideX(begin: 0.2);
       },
     );
@@ -277,9 +267,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
   Widget _buildLevelPage() {
     final strings = AppStrings(context);
     final levels = [
-      {'key': 'beginner', 'text': strings.beginner},
-      {'key': 'intermediate', 'text': strings.intermediate},
-      {'key': 'advanced', 'text': strings.advanced},
+      {'key': 'beginner', 'text': strings.beginner, 'icon': Icons.star_border},
+      {'key': 'intermediate', 'text': strings.intermediate, 'icon': Icons.star_half},
+      {'key': 'advanced', 'text': strings.advanced, 'icon': Icons.star},
     ];
     return Center(
       child: Padding(
@@ -296,6 +286,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                 setState(() => _levelKey = level['key'] as String);
                 _nextPage();
               },
+              icon: level['icon'] as IconData,
             ).animate().fadeIn(delay: (index * 100).ms).scale();
           }).toList(),
         ),
@@ -311,34 +302,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            strings.whereToWorkout,
-            style: theme.textTheme.titleMedium?.copyWith(color: Colors.white60),
-          ).animate().fadeIn().slideX(begin: -0.2),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(
-                child: _buildSmallOption(strings.gym, Icons.fitness_center, 'gym')
-                    .animate()
-                    .fadeIn(delay: 100.ms)
-                    .scale(),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: _buildSmallOption(strings.homeDumbbell, Icons.home, 'home')
-                    .animate()
-                    .fadeIn(delay: 200.ms)
-                    .scale(),
-              ),
-            ],
-          ),
-          
-          const SizedBox(height: 40),
-          
           GlassContainer(
-            padding: const EdgeInsets.all(20),
-            borderRadius: 20,
+            padding: const EdgeInsets.all(24),
+            borderRadius: 24,
             child: Column(
               children: [
                 Row(
@@ -346,18 +312,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                   children: [
                     Text(
                       strings.weeklyWorkout,
-                      style: theme.textTheme.titleMedium?.copyWith(color: Colors.white60),
+                      style: theme.textTheme.titleLarge,
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       decoration: BoxDecoration(
                         gradient: AppTheme.secondaryGradient,
                         borderRadius: BorderRadius.circular(12),
-                        boxShadow: AppTheme.glowShadow(AppTheme.secondaryCyan),
+                        boxShadow: AppTheme.neonShadow(AppTheme.secondaryCyan),
                       ),
                       child: Text(
                         "${_days.toInt()} ${strings.days}",
-                        style: theme.textTheme.headlineSmall?.copyWith(
+                        style: theme.textTheme.titleMedium?.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
@@ -365,15 +331,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 32),
                 SliderTheme(
                   data: SliderTheme.of(context).copyWith(
                     activeTrackColor: AppTheme.secondaryCyan,
                     inactiveTrackColor: Colors.white10,
-                    thumbColor: AppTheme.secondaryCyan,
+                    thumbColor: Colors.white,
                     overlayColor: AppTheme.secondaryCyan.withValues(alpha: 0.2),
-                    trackHeight: 6,
-                    thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 12),
+                    trackHeight: 8,
+                    thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 14),
                   ),
                   child: Slider(
                     value: _days,
@@ -398,7 +364,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
               onPressed: provider.isLoading
                   ? null
                   : () async {
-                      // Convert keys to localized strings for API
                       final gender = _genderKey == 'male' ? strings.male : strings.female;
                       final goal = _getGoalText(strings);
                       final level = _getLevelText(strings);
@@ -410,12 +375,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                         level,
                         _days.toInt(),
                         location,
+                        _equipmentKey,
+                        _focusAreasKeys.isNotEmpty ? _focusAreasKeys.toList() : null,
                       );
                       
                       if (!mounted) return;
                       
                       if (result['success'] == true) {
-                        // Success - navigate to result screen
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -423,80 +389,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                           ),
                         );
                       } else {
-                        // Error - show error message with action
                         final errorMessage = result['error'] ?? 'Bir hata oluştu';
-                        final isNetworkError = errorMessage.contains('İnternet') || 
-                                             errorMessage.contains('bağlantı');
-                        
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      isNetworkError ? Icons.wifi_off : Icons.error_outline,
-                                      color: Colors.white,
-                                    ),
-                                    const SizedBox(width: 12),
-                                    Expanded(
-                                      child: Text(
-                                        errorMessage,
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                if (isNetworkError) ...[
-                                  const SizedBox(height: 12),
-                                  Container(
-                                    width: double.infinity,
-                                    padding: const EdgeInsets.all(12),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white.withValues(alpha: 0.1),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Row(
-                                      children: const [
-                                        Icon(Icons.lightbulb_outline, 
-                                             color: Colors.amber, size: 18),
-                                        SizedBox(width: 8),
-                                        Expanded(
-                                          child: Text(
-                                            'İpucu: Manuel program oluşturmayı deneyin - internet gerektirmez!',
-                                            style: TextStyle(fontSize: 12),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ],
-                            ),
-                            backgroundColor: isNetworkError 
-                                ? Colors.orange.shade700 
-                                : Colors.red.shade700,
-                            behavior: SnackBarBehavior.floating,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            margin: const EdgeInsets.all(16),
-                            duration: const Duration(seconds: 6),
-                            action: isNetworkError
-                                ? SnackBarAction(
-                                    label: 'Manuel Oluştur',
-                                    textColor: Colors.white,
-                                    onPressed: () {
-                                      Navigator.pushNamed(context, '/create-manual');
-                                    },
-                                  )
-                                : null,
-                          ),
+                          SnackBar(content: Text(errorMessage)),
                         );
                       }
                     },
@@ -522,29 +417,34 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
     bool isSelected,
     VoidCallback onTap,
   ) {
-    final theme = Theme.of(context);
-    return GlassCard(
-      isSelected: isSelected,
-      selectedColor: AppTheme.secondaryCyan,
+    return GestureDetector(
       onTap: onTap,
-      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
-      child: SizedBox(
-        width: 120,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        width: 140,
+        padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+        decoration: AppTheme.glassDecoration(
+          color: isSelected ? AppTheme.secondaryCyan.withValues(alpha: 0.2) : null,
+          showBorder: isSelected,
+        ).copyWith(
+          boxShadow: isSelected ? AppTheme.neonShadow(AppTheme.secondaryCyan) : [],
+          border: isSelected ? Border.all(color: AppTheme.secondaryCyan, width: 2) : null,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
               icon,
-              size: 50,
+              size: 60,
               color: isSelected ? AppTheme.secondaryCyan : Colors.white54,
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
             Text(
               label,
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: isSelected ? AppTheme.secondaryCyan : Colors.white70,
+                color: isSelected ? Colors.white : Colors.white70,
               ),
             ),
           ],
@@ -553,87 +453,548 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
     );
   }
 
-  Widget _buildOptionCard(String text, bool isSelected, VoidCallback onTap) {
-    final theme = Theme.of(context);
-    return GlassCard(
-      isSelected: isSelected,
-      selectedColor: AppTheme.primaryPurple,
+  Widget _buildOptionCard(String text, bool isSelected, VoidCallback onTap, {IconData? icon}) {
+    return GestureDetector(
       onTap: onTap,
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 24),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            text,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: isSelected ? Colors.white : Colors.white70,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        margin: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.all(24),
+        decoration: AppTheme.glassDecoration(
+          color: isSelected ? AppTheme.primaryPurple.withValues(alpha: 0.2) : null,
+          showBorder: isSelected,
+        ).copyWith(
+          boxShadow: isSelected ? AppTheme.neonShadow(AppTheme.primaryPurple) : [],
+          border: isSelected ? Border.all(color: AppTheme.primaryPurple, width: 2) : null,
+        ),
+        child: Row(
+          children: [
+            if (icon != null) ...[
+              Icon(
+                icon,
+                color: isSelected ? AppTheme.primaryPurple : Colors.white54,
+                size: 28,
+              ),
+              const SizedBox(width: 16),
+            ],
+            Expanded(
+              child: Text(
+                text,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: isSelected ? Colors.white : Colors.white70,
+                ),
+              ),
             ),
-          ),
-          if (isSelected)
-            Icon(Icons.check_circle, color: AppTheme.primaryPurple),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSmallOption(String label, IconData icon, String key) {
-    final theme = Theme.of(context);
-    bool isSelected = _locationKey == key;
-    return GlassCard(
-      isSelected: isSelected,
-      selectedColor: AppTheme.secondaryCyan,
-      onTap: () => setState(() => _locationKey = key),
-      padding: const EdgeInsets.symmetric(vertical: 24),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? AppTheme.secondaryCyan : Colors.white54,
-            size: 32,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            label.split(' ')[0],
-            style: TextStyle(
-              color: isSelected ? AppTheme.secondaryCyan : Colors.white70,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
+            if (isSelected)
+              Icon(Icons.check_circle, color: AppTheme.primaryPurple),
+          ],
+        ),
       ),
     );
   }
   
-  // Helper methods to convert keys to localized text
   String _getGoalText(AppStrings strings) {
     switch (_goalKey) {
-      case 'loseWeight':
-        return strings.loseWeight;
-      case 'buildMuscle':
-        return strings.buildMuscle;
-      case 'getStronger':
-        return strings.getStronger;
-      case 'getFit':
-        return strings.getFit;
-      default:
-        return strings.loseWeight;
+      case 'loseWeight': return strings.loseWeight;
+      case 'buildMuscle': return strings.buildMuscle;
+      case 'getStronger': return strings.getStronger;
+      case 'getFit': return strings.getFit;
+      default: return strings.loseWeight;
     }
   }
   
   String _getLevelText(AppStrings strings) {
     switch (_levelKey) {
-      case 'beginner':
-        return strings.beginner;
-      case 'intermediate':
-        return strings.intermediate;
-      case 'advanced':
-        return strings.advanced;
-      default:
-        return strings.beginner;
+      case 'beginner': return strings.beginner;
+      case 'intermediate': return strings.intermediate;
+      case 'advanced': return strings.advanced;
+      default: return strings.beginner;
     }
+  }
+  
+
+  
+  // --- ENHANCED ONBOARDING PAGES (NEW) ---
+  
+  Widget _buildEnhancedEquipmentPage() {
+    final strings = AppStrings(context);
+    
+    final equipmentOptions = [
+      {'key': 'fullGym', 'label': strings.fullGym, 'desc': strings.fullGymDesc, 'icon': Icons.fitness_center},
+      {'key': 'barbells', 'label': strings.barbells, 'desc': strings.barbellsDesc, 'icon': Icons.compress},
+      {'key': 'dumbbells', 'label': strings.dumbbell, 'desc': strings.dumbbellDesc, 'icon': Icons.fitness_center},
+      {'key': 'kettlebells', 'label': strings.kettlebells, 'desc': strings.kettlebellsDesc, 'icon': Icons.sports_gymnastics},
+      {'key': 'machines', 'label': strings.machines, 'desc': strings.machinesDesc, 'icon': Icons.settings},
+      {'key': 'bodyweight', 'label': strings.bodyweightOnly, 'desc': strings.bodyweightOnlyDesc, 'icon': Icons.self_improvement},
+    ];
+    
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        children: [
+          Text(
+            strings.equipmentSelectionDesc,
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.7),
+              fontSize: 14,
+            ),
+            textAlign: TextAlign.center,
+          ).animate().fadeIn(),
+          
+          const SizedBox(height: 24),
+          
+          Expanded(
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 0.72,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+              ),
+              itemCount: equipmentOptions.length,
+              itemBuilder: (context, index) {
+                final option = equipmentOptions[index];
+                final key = option['key'] as String;
+                final isSelected = _selectedEquipment.contains(key);
+                
+                return EquipmentIconCard(
+                  label: option['label'] as String,
+                  description: option['desc'] as String,
+                  icon: option['icon'] as IconData,
+                  isSelected: isSelected,
+                  onTap: () {
+                    setState(() {
+                      if (isSelected) {
+                        _selectedEquipment.remove(key);
+                      } else {
+                        _selectedEquipment.add(key);
+                      }
+                    });
+                  },
+                );
+              },
+            ),
+          ),
+          
+          const SizedBox(height: 16),
+          
+          SizedBox(
+            width: double.infinity,
+            child: PremiumButton(
+              text: '${strings.continueButton} (${_selectedEquipment.length} ${strings.selectedCount})',
+              gradient: _selectedEquipment.isNotEmpty 
+                ? AppTheme.primaryGradient 
+                : LinearGradient(colors: [Colors.grey.shade700, Colors.grey.shade600]),
+              onPressed: _selectedEquipment.isEmpty ? null : _nextPage,
+            ),
+          ).animate().fadeIn(delay: 300.ms),
+        ],
+      ),
+    );
+  }
+  
+  Widget _buildAnatomicalFocusPage() {
+    final strings = AppStrings(context);
+    
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        children: [
+          Text(
+            strings.selectFocusAreas,
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.7),
+              fontSize: 14,
+            ),
+            textAlign: TextAlign.center,
+          ).animate().fadeIn(),
+          
+          const SizedBox(height: 24),
+          
+          Expanded(
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 1.3,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+              ),
+              itemCount: 7, // Chest, Back, Shoulders, Arms, Legs, Core, Glutes
+              itemBuilder: (context, index) {
+                final options = [
+                  {'key': 'chest', 'label': strings.chest, 'icon': Icons.favorite},
+                  {'key': 'back', 'label': strings.back, 'icon': Icons.back_hand},
+                  {'key': 'shoulders', 'label': strings.shoulders, 'icon': Icons.accessibility_new},
+                  {'key': 'arms', 'label': strings.arms, 'icon': Icons.fitness_center},
+                  {'key': 'legs', 'label': strings.legs, 'icon': Icons.directions_run},
+                  {'key': 'core', 'label': strings.core, 'icon': Icons.center_focus_strong},
+                  {'key': 'glutes', 'label': strings.glutes, 'icon': Icons.sports_gymnastics},
+                ];
+                
+                final option = options[index];
+                final key = option['key'] as String;
+                final label = option['label'] as String;
+                final icon = option['icon'] as IconData;
+                final isSelected = _focusAreasKeys.contains(key);
+                
+                return GlassCard(
+                  isSelected: isSelected,
+                  selectedColor: AppTheme.primaryPurple,
+                  onTap: () {
+                    setState(() {
+                      if (isSelected) {
+                        _focusAreasKeys.remove(key);
+                      } else {
+                        _focusAreasKeys.add(key);
+                      }
+                    });
+                  },
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        icon,
+                        size: 32,
+                        color: isSelected ? AppTheme.primaryPurple : Colors.white54,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        label,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: isSelected ? Colors.white : Colors.white70,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+          
+          const SizedBox(height: 16),
+          
+          SizedBox(
+            width: double.infinity,
+            child: PremiumButton(
+              text: _focusAreasKeys.isNotEmpty 
+                ? '${strings.continueButton} (${_focusAreasKeys.length} ${strings.selectedCount})'
+                : strings.continueButton,
+              gradient: _focusAreasKeys.isNotEmpty 
+                ? AppTheme.secondaryGradient 
+                : LinearGradient(colors: [Colors.grey.shade700, Colors.grey.shade600]),
+              onPressed: _focusAreasKeys.isEmpty ? null : _nextPage,
+            ),
+          ).animate().fadeIn(delay: 300.ms),
+        ],
+      ),
+    );
+  }
+  
+  Widget _buildBodyTypePage() {
+    final strings = AppStrings(context);
+    
+    final bodyTypes = [
+      {'key': 'ectomorph', 'label': strings.ectomorph, 'desc': strings.ectomorphDesc},
+      {'key': 'mesomorph', 'label': strings.mesomorph, 'desc': strings.mesomorphDesc},
+      {'key': 'endomorph', 'label': strings.endomorph, 'desc': strings.endomorphDesc},
+    ];
+    
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Column(
+        children: [
+          Text(
+            strings.bodyTypeOptional,
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.5),
+              fontSize: 14,
+            ),
+          ).animate().fadeIn(),
+          
+          const SizedBox(height: 24),
+          
+          Expanded(
+            child: ListView.builder(
+              itemCount: bodyTypes.length,
+              itemBuilder: (context, index) {
+                final type = bodyTypes[index];
+                final key = type['key'] as String;
+                final isSelected = _bodyType == key;
+                
+                return GestureDetector(
+                  onTap: () {
+                    setState(() => _bodyType = key);
+                    Future.delayed(const Duration(milliseconds: 300), _nextPage);
+                  },
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    margin: const EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: isSelected 
+                        ? AppTheme.primaryPurple.withValues(alpha: 0.15)
+                        : Colors.white.withValues(alpha: 0.05),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: isSelected ? AppTheme.primaryPurple : Colors.white.withValues(alpha: 0.1),
+                        width: isSelected ? 2 : 1,
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                type['label'] as String,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: isSelected ? AppTheme.primaryPurple : Colors.white,
+                                ),
+                              ),
+                            ),
+                            if (isSelected)
+                              Icon(Icons.check_circle, color: AppTheme.primaryPurple),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          type['desc'] as String,
+                          style: TextStyle(
+                            color: Colors.white.withValues(alpha: 0.6),
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ).animate().fadeIn(delay: (index * 100).ms).slideX(begin: 0.2);
+              },
+            ),
+          ),
+          
+          const SizedBox(height: 16),
+          
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton(
+              onPressed: _nextPage,
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                side: BorderSide(color: Colors.white.withValues(alpha: 0.3)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+              child: Text(
+                strings.skipQuestion,
+                style: const TextStyle(color: Colors.white70),
+              ),
+            ),
+          ).animate().fadeIn(delay: 400.ms),
+        ],
+      ),
+    );
+  }
+  
+  Widget _buildExperiencePage() {
+    final strings = AppStrings(context);
+    
+    final experienceLevels = [
+      {'key': 'newbie', 'label': strings.newbie},
+      {'key': 'beginner', 'label': strings.beginnerExp},
+      {'key': 'intermediate', 'label': strings.intermediateExp},
+      {'key': 'advanced', 'label': strings.advancedExp},
+    ];
+    
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ...experienceLevels.asMap().entries.map((entry) {
+              final index = entry.key;
+              final level = entry.value;
+              final key = level['key'] as String;
+              final isSelected = _experience == key;
+              
+              return GestureDetector(
+                onTap: () {
+                  setState(() => _experience = key);
+                  Future.delayed(const Duration(milliseconds: 300), _nextPage);
+                },
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  margin: const EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: isSelected 
+                      ? AppTheme.secondaryCyan.withValues(alpha: 0.15)
+                      : Colors.white.withValues(alpha: 0.05),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: isSelected ? AppTheme.secondaryCyan : Colors.white.withValues(alpha: 0.1),
+                      width: isSelected ? 2 : 1,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        level['label'] as String,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                          color: isSelected ? AppTheme.secondaryCyan : Colors.white,
+                        ),
+                      ),
+                      if (isSelected)
+                        Icon(Icons.check_circle, color: AppTheme.secondaryCyan),
+                    ],
+                  ),
+                ),
+              ).animate().fadeIn(delay: (index * 100).ms).scale();
+            }),
+            
+            const SizedBox(height: 16),
+            
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton(
+                onPressed: _nextPage,
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  side: BorderSide(color: Colors.white.withValues(alpha: 0.3)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+                child: Text(
+                  strings.skipQuestion,
+                  style: const TextStyle(color: Colors.white70),
+                ),
+              ),
+            ).animate().fadeIn(delay: 500.ms),
+          ],
+        ),
+      ),
+    );
+  }
+  
+  Widget _buildInjuryPage() {
+    final strings = AppStrings(context);
+    
+    final injuryOptions = [
+      {'key': 'back', 'label': strings.backPain},
+      {'key': 'knee', 'label': strings.kneePain},
+      {'key': 'shoulder', 'label': strings.shoulderPain},
+      {'key': 'other', 'label': strings.otherInjury},
+      {'key': 'none', 'label': strings.noInjuries},
+    ];
+    
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        children: [
+          Text(
+            strings.bodyTypeOptional,
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.5),
+              fontSize: 14,
+            ),
+          ).animate().fadeIn(),
+          
+          const SizedBox(height: 24),
+          
+          Expanded(
+            child: ListView.builder(
+              itemCount: injuryOptions.length,
+              itemBuilder: (context, index) {
+                final option = injuryOptions[index];
+                final key = option['key'] as String;
+                final isSelected = _injuries.contains(key);
+                
+                // If "none" is selected, disable others
+                final isDisabled = _injuries.contains('none') && key != 'none';
+                
+                return GestureDetector(
+                  onTap: isDisabled ? null : () {
+                    setState(() {
+                      if (key == 'none') {
+                        _injuries.clear();
+                        _injuries.add('none');
+                      } else {
+                        _injuries.remove('none');
+                        if (isSelected) {
+                          _injuries.remove(key);
+                        } else {
+                          _injuries.add(key);
+                        }
+                      }
+                    });
+                  },
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    margin: const EdgeInsets.only(bottom: 12),
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: isSelected 
+                        ? AppTheme.accentOrange.withValues(alpha: 0.15)
+                        : Colors.white.withValues(alpha: 0.05),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: isSelected ? AppTheme.accentOrange : Colors.white.withValues(alpha: 0.1),
+                        width: isSelected ? 2 : 1,
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          isSelected ? Icons.check_box : Icons.check_box_outline_blank,
+                          color: isSelected 
+                            ? AppTheme.accentOrange 
+                            : isDisabled
+                              ? Colors.white.withValues(alpha: 0.3)
+                              : Colors.white.withValues(alpha: 0.5),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Text(
+                            option['label'] as String,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: isDisabled 
+                                ? Colors.white.withValues(alpha: 0.3)
+                                : isSelected ? AppTheme.accentOrange : Colors.white,
+                              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ).animate().fadeIn(delay: (index * 80).ms).slideX(begin: 0.2);
+              },
+            ),
+          ),
+          
+          const SizedBox(height: 16),
+          
+          SizedBox(
+            width: double.infinity,
+            child: PremiumButton(
+              text: strings.continueButton,
+              gradient: AppTheme.primaryGradient,
+              onPressed: _nextPage,
+            ),
+          ).animate().fadeIn(delay: 400.ms),
+        ],
+      ),
+    );
   }
 }

@@ -52,7 +52,7 @@ class ResultScreen extends StatelessWidget {
                 indicator: BoxDecoration(
                   gradient: AppTheme.primaryGradient,
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: AppTheme.glowShadow(AppTheme.primaryPurple, opacity: 0.4),
+                  boxShadow: AppTheme.neonShadow(AppTheme.primaryPurple, opacity: 0.4),
                 ),
                 indicatorSize: TabBarIndicatorSize.tab,
                 dividerColor: Colors.transparent,
@@ -107,7 +107,7 @@ class ResultScreen extends StatelessWidget {
                     colors: [Colors.green, Colors.green.shade700],
                   ),
                   shape: BoxShape.circle,
-                  boxShadow: AppTheme.glowShadow(Colors.green, opacity: 0.5),
+                  boxShadow: AppTheme.neonShadow(Colors.green, opacity: 0.5),
                 ),
                 child: const Icon(Icons.play_arrow, color: Colors.white, size: 28),
               ),
@@ -136,7 +136,7 @@ class ResultScreen extends StatelessWidget {
                     colors: [AppTheme.accentOrange, AppTheme.accentOrange.withValues(alpha: 0.8)],
                   ),
                   shape: BoxShape.circle,
-                  boxShadow: AppTheme.glowShadow(AppTheme.accentOrange, opacity: 0.5),
+                  boxShadow: AppTheme.neonShadow(AppTheme.accentOrange, opacity: 0.5),
                 ),
                 child: const Icon(Icons.edit, color: Colors.white, size: 24),
               ),
@@ -165,6 +165,9 @@ class ResultScreen extends StatelessWidget {
                           backgroundColor: Colors.green,
                         ),
                       );
+                      
+                      // Navigate back to home screen
+                      Navigator.popUntil(context, (route) => route.isFirst);
                     }
                   }
                 },
@@ -176,7 +179,7 @@ class ResultScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     gradient: AppTheme.primaryGradient,
                     shape: BoxShape.circle,
-                    boxShadow: AppTheme.glowShadow(AppTheme.primaryPurple, opacity: 0.5),
+                    boxShadow: AppTheme.neonShadow(AppTheme.primaryPurple, opacity: 0.5),
                   ),
                   child: const Icon(Icons.save, color: Colors.white, size: 24),
                 ),
@@ -188,6 +191,89 @@ class ResultScreen extends StatelessWidget {
   }
 
   Widget _buildDayPage(BuildContext context, WorkoutProvider provider, WorkoutDay day, int dayIndex, AppStrings strings) {
+    // Check if it's a rest day
+    if (day.isRestDay) {
+      return Center(
+        child: GlassContainer(
+          margin: const EdgeInsets.all(32),
+          padding: const EdgeInsets.all(32),
+          borderRadius: 24,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [AppTheme.secondaryCyan.withValues(alpha: 0.3), AppTheme.primaryPurple.withValues(alpha: 0.3)],
+                  ),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.bed,
+                  size: 64,
+                  color: AppTheme.secondaryCyan,
+                ),
+              ).animate().scale(duration: 600.ms),
+              
+              const SizedBox(height: 24),
+              
+              Text(
+                strings.restDay,
+                style: const TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center,
+              ).animate().fadeIn(delay: 200.ms),
+              
+              const SizedBox(height: 16),
+              
+              Text(
+                strings.restDayMessage,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white.withValues(alpha: 0.7),
+                  height: 1.5,
+                ),
+                textAlign: TextAlign.center,
+              ).animate().fadeIn(delay: 300.ms),
+              
+              const SizedBox(height: 32),
+              
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppTheme.secondaryCyan.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: AppTheme.secondaryCyan.withValues(alpha: 0.3)),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.info_outline, color: AppTheme.secondaryCyan, size: 20),
+                    const SizedBox(width: 12),
+                    Flexible(
+                      child: Text(
+                        strings.restDayTip,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: AppTheme.secondaryCyan,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ).animate().fadeIn(delay: 400.ms).slideY(begin: 0.2),
+            ],
+          ),
+        ),
+      );
+    }
+    
+    // Regular workout day
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
@@ -196,7 +282,7 @@ class ResultScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
           borderRadius: 20,
           margin: const EdgeInsets.only(bottom: 20),
-          boxShadow: AppTheme.glowShadow(AppTheme.secondaryCyan, opacity: 0.2),
+          boxShadow: AppTheme.neonShadow(AppTheme.secondaryCyan, opacity: 0.2),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -226,6 +312,7 @@ class ResultScreen extends StatelessWidget {
           final ex = scheduledEx.exercise;
 
           final isCompleted = provider.isExerciseCompleted(day.dayName, index);
+          final isInProgress = provider.isExerciseInProgress(day.dayName, index);
 
           return Padding(
             padding: const EdgeInsets.only(bottom: 16),
@@ -259,7 +346,7 @@ class ResultScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                           gradient: AppTheme.primaryGradient,
-                          boxShadow: AppTheme.glowShadow(AppTheme.primaryPurple, opacity: 0.3),
+                          boxShadow: AppTheme.neonShadow(AppTheme.primaryPurple, opacity: 0.3),
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12),
@@ -326,27 +413,39 @@ class ResultScreen extends StatelessWidget {
                         ),
                       ),
 
-                      // Checkmark Icon
+                      // Status Icon (Yellow for in-progress, Green for completed)
                       Container(
                         width: 40,
                         height: 40,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: isCompleted ? Colors.green : Colors.transparent,
+                          color: isCompleted 
+                              ? Colors.green 
+                              : isInProgress 
+                                  ? Colors.amber.shade700
+                                  : Colors.transparent,
                           border: Border.all(
-                            color: isCompleted ? Colors.green : Colors.white.withValues(alpha: 0.3),
+                            color: isCompleted 
+                                ? Colors.green 
+                                : isInProgress
+                                    ? Colors.amber.shade700
+                                    : Colors.white.withValues(alpha: 0.3),
                             width: 2,
                           ),
                           boxShadow: isCompleted 
-                              ? AppTheme.glowShadow(Colors.green, opacity: 0.5) 
-                              : null,
+                              ? AppTheme.neonShadow(Colors.green, opacity: 0.5) 
+                              : isInProgress
+                                  ? AppTheme.neonShadow(Colors.amber.shade700, opacity: 0.5)
+                                  : null,
                         ),
                         child: Icon(
-                          Icons.check,
-                          color: isCompleted ? Colors.white : Colors.white.withValues(alpha: 0.3),
+                          isCompleted ? Icons.check : isInProgress ? Icons.more_horiz : Icons.check,
+                          color: isCompleted || isInProgress 
+                              ? Colors.white 
+                              : Colors.white.withValues(alpha: 0.3),
                           size: 20,
                         ),
-                      ).animate(target: isCompleted ? 1 : 0).scale(
+                      ).animate(target: (isCompleted || isInProgress) ? 1 : 0).scale(
                         duration: 300.ms,
                         curve: Curves.elasticOut,
                       ),

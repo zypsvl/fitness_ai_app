@@ -8,8 +8,11 @@ import '../widgets/animated_gradient_background.dart';
 import '../widgets/glass_container.dart';
 import '../widgets/set_tracker_widget.dart';
 import '../widgets/rest_timer_widget.dart';
+import '../widgets/rest_timer_bottom_sheet.dart';
 import '../theme_config.dart';
 import '../utils/app_strings.dart';
+import '../services/share_service.dart';
+import '../widgets/shareable_stats_card.dart';
 
 class ActiveWorkoutScreen extends StatefulWidget {
   final WorkoutDay workoutDay;
@@ -36,6 +39,7 @@ class _ActiveWorkoutScreenState extends State<ActiveWorkoutScreen> {
   int _currentExerciseIndex = 0;
   List<SetData> _currentSets = [];
   bool _showRestTimer = false;
+  int _restDuration = 90; // Default rest duration
   bool _isWorkoutCompleted = false;
 
   @override
@@ -61,6 +65,12 @@ class _ActiveWorkoutScreenState extends State<ActiveWorkoutScreen> {
       _currentExerciseIndex >= widget.workoutDay.exercises.length - 1;
 
   void _onSetComplete(SetData setData) {
+    // Mark exercise as in-progress when first set is completed
+    if (_currentSets.isEmpty) {
+      final provider = Provider.of<WorkoutProvider>(context, listen: false);
+      provider.markExerciseInProgress(widget.workoutDay.dayName, _currentExerciseIndex);
+    }
+
     setState(() {
       _currentSets.add(setData);
 
@@ -76,11 +86,10 @@ class _ActiveWorkoutScreenState extends State<ActiveWorkoutScreen> {
       );
     });
 
-    // Show rest timer if not last set of exercise
+    // Show rest timer or completion based on progress
     if (!_isExerciseCompleted) {
-      setState(() {
-        _showRestTimer = true;
-      });
+      // Show bottom sheet to let user select rest duration
+      _showRestTimerSelection();
     } else if (widget.singleExerciseMode) {
       // Single exercise mode - finish immediately
       _completeSingleExercise();
@@ -91,6 +100,25 @@ class _ActiveWorkoutScreenState extends State<ActiveWorkoutScreen> {
       // Workout completed!
       _completeWorkout();
     }
+  }
+
+  void _showRestTimerSelection() {
+    showRestTimerBottomSheet(
+      context: context,
+      onSkip: () {
+        // User skipped rest, ready for next set
+        setState(() {
+          _showRestTimer = false;
+        });
+      },
+      onStartTimer: (duration) {
+        // User selected duration, start timer
+        setState(() {
+          _showRestTimer = true;
+          _restDuration = duration;
+        });
+      },
+    );
   }
 
   void _completeSingleExercise() {
@@ -111,7 +139,7 @@ class _ActiveWorkoutScreenState extends State<ActiveWorkoutScreen> {
             Text('${_currentExercise.exercise.name} ${strings.completed}'),
           ],
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: AppTheme.neonGreen,
         behavior: SnackBarBehavior.floating,
       ),
     );
@@ -207,73 +235,107 @@ class _ActiveWorkoutScreenState extends State<ActiveWorkoutScreen> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF1A1F38),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(
-              Icons.celebration,
-              color: AppTheme.secondaryCyan,
-              size: 64,
-            ).animate().scale(duration: 500.ms),
-            const SizedBox(height: 20),
-            Text(
-              strings.workoutCompleted,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        child: GlassContainer(
+          borderRadius: 24,
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.celebration,
+                color: AppTheme.secondaryCyan,
+                size: 64,
+              ).animate().scale(duration: 500.ms).then().shimmer(duration: 1000.ms),
+              const SizedBox(height: 20),
+              Text(
+                strings.workoutCompleted,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
-            GlassContainer(
-              padding: const EdgeInsets.all(16),
-              borderRadius: 12,
-              child: Column(
-                children: [
-                  _buildStat('⏱️', strings.duration, _formatDuration(_session.duration)),
-                  const Divider(color: Colors.white24, height: 24),
-                  _buildStat('💪', strings.sets, '${_session.totalSets}'),
-                  const Divider(color: Colors.white24, height: 24),
-                  _buildStat('🔥', strings.reps, '${_session.totalReps}'),
-                  if (_session.totalVolume > 0) ...[
+              const SizedBox(height: 24),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.05),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+                ),
+                child: Column(
+                  children: [
+                    _buildStat('⏱️', strings.duration, _formatDuration(_session.duration)),
                     const Divider(color: Colors.white24, height: 24),
-                    _buildStat('📊', strings.volume, '${_session.totalVolume.toStringAsFixed(0)} kg'),
+                    _buildStat('💪', strings.sets, '${_session.totalSets}'),
+                    const Divider(color: Colors.white24, height: 24),
+                    _buildStat('🔥', strings.reps, '${_session.totalReps}'),
+                    if (_session.totalVolume > 0) ...[
+                      const Divider(color: Colors.white24, height: 24),
+                      _buildStat('📊', strings.volume, '${_session.totalVolume.toStringAsFixed(0)} kg'),
+                    ],
                   ],
-                ],
-              ),
-            ),
-            const SizedBox(height: 24),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); // Close dialog
-                  Navigator.of(context).pop(); // Close workout screen
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppTheme.secondaryCyan,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: Text(
-                  strings.complete,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 32),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close dialog
+                    Navigator.of(context).pop(); // Close workout screen
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppTheme.secondaryCyan,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    elevation: 0,
+                    shadowColor: AppTheme.secondaryCyan.withValues(alpha: 0.5),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  child: Text(
+                    strings.complete,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              SizedBox(
+                width: double.infinity,
+                child: TextButton.icon(
+                  onPressed: () {
+                    final shareService = ShareService();
+                    shareService.shareWidget(
+                      context: context,
+                      subject: 'Workout Completed! 🚀',
+                      text: 'I just crushed a ${_session.duration.inMinutes} min workout with GymGenius! 💪',
+                      widget: ShareableStatsCard(
+                        title: 'WORKOUT COMPLETED',
+                        value: '${_session.duration.inMinutes} min',
+                        subtitle: '${_session.totalSets} Sets • ${_session.totalReps} Reps',
+                        icon: Icons.fitness_center,
+                        color: AppTheme.secondaryCyan,
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.share, color: Colors.white70),
+                  label: const Text(
+                    'Share Achievement',
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -314,32 +376,105 @@ class _ActiveWorkoutScreenState extends State<ActiveWorkoutScreen> {
     final strings = AppStrings(context);
     final result = await showDialog<bool>(
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF1A1F38),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        title: Text(
-          strings.finishWorkout,
-          style: const TextStyle(color: Colors.white),
-        ),
-        content: Text(
-          strings.finishWorkoutConfirm,
-          style: const TextStyle(color: Colors.white70),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(strings.continueWorkout),
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        child: GlassContainer(
+          padding: const EdgeInsets.all(24),
+          borderRadius: 24,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.pause_circle_outline,
+                  color: Colors.white,
+                  size: 48,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                strings.finishWorkout,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 12),
+              Text(
+                strings.finishWorkoutConfirm,
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.7),
+                  fontSize: 16,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () => Navigator.of(context).pop(false),
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                      ),
+                      child: Text(
+                        strings.continueWorkout,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Colors.redAccent.shade400, Colors.redAccent.shade700],
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.redAccent.withValues(alpha: 0.4),
+                            blurRadius: 8,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: ElevatedButton(
+                        onPressed: () => Navigator.of(context).pop(true),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text(
+                          strings.finish,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(
-              strings.finish,
-              style: const TextStyle(color: Colors.red),
-            ),
-          ),
-        ],
+        ),
       ),
     );
 
@@ -415,7 +550,7 @@ class _ActiveWorkoutScreenState extends State<ActiveWorkoutScreen> {
                         // Rest timer
                         if (_showRestTimer) ...[
                           RestTimerWidget(
-                            durationSeconds: 90,
+                            durationSeconds: _restDuration,
                             onComplete: () {
                               setState(() {
                                 _showRestTimer = false;

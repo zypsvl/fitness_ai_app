@@ -168,7 +168,7 @@ class _SaveProgramDialogState extends State<SaveProgramDialog> {
                       decoration: BoxDecoration(
                         gradient: AppTheme.primaryGradient,
                         borderRadius: BorderRadius.circular(12),
-                        boxShadow: AppTheme.glowShadow(
+                        boxShadow: AppTheme.neonShadow(
                           AppTheme.primaryPurple,
                           opacity: 0.4,
                         ),

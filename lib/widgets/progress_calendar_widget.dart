@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../theme_config.dart';
+import '../utils/app_strings.dart';
 
 /// Calendar widget showing workout completion for the month
 class ProgressCalendarWidget extends StatelessWidget {
@@ -15,29 +16,29 @@ class ProgressCalendarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = AppStrings(context);
     final daysInMonth = DateTime(currentMonth.year, currentMonth.month + 1, 0).day;
     final firstDayOfMonth = DateTime(currentMonth.year, currentMonth.month, 1);
     final firstWeekday = firstDayOfMonth.weekday; // 1 = Monday, 7 = Sunday
 
+    // Day abbreviations (single letter) - Mon, Tue, Wed, etc.
+    final dayAbbreviations = [
+      strings.dayMon[0], // M
+      strings.dayTue[0], // T
+      strings.dayWed[0], // W
+      strings.dayThu[0], // T
+      strings.dayFri[0], // F
+      strings.daySat[0], // S
+      strings.daySun[0], // S
+    ];
+
     return Column(
       children: [
-        // Month/Year header
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          child: Text(
-            _getMonthName(currentMonth.month),
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-        ),
-
+        // Month name header (removed from here, shown in parent)
         // Weekday labels
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: ['P', 'S', 'Ç', 'P', 'C', 'C', 'P'].map((day) {
+          children: dayAbbreviations.map((day) {
             return Expanded(
               child: Center(
                 child: Text(
@@ -134,13 +135,5 @@ class ProgressCalendarWidget extends StatelessWidget {
     return date.year == now.year &&
         date.month == now.month &&
         date.day == now.day;
-  }
-
-  String _getMonthName(int month) {
-    const months = [
-      'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran',
-      'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
-    ];
-    return months[month - 1];
   }
 }

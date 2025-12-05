@@ -388,6 +388,39 @@ class AppLocalizationsTr extends AppLocalizations {
   String get noExercisesFound => 'Egzersiz bulunamadı';
 
   @override
+  String get equipmentQuestion => 'Hangi ekipmanlara sahipsiniz?';
+
+  @override
+  String get dumbbells => 'Dumbbell';
+
+  @override
+  String get resistanceBands => 'Direnç Bandı';
+
+  @override
+  String get bothEquipment => 'Her İkisi';
+
+  @override
+  String get noEquipment => 'Ekipman Yok';
+
+  @override
+  String get focusAreasQuestion => 'Hangi bölgelere odaklanmak istiyorsunuz?';
+
+  @override
+  String get selectUpTo3 => 'Odaklanmak istediğiniz bölgeleri seçin';
+
+  @override
+  String get back => 'Sırt';
+
+  @override
+  String get arms => 'Kollar';
+
+  @override
+  String get legs => 'Bacaklar';
+
+  @override
+  String get core => 'Karın';
+
+  @override
   String get chest => 'Göğüs';
 
   @override
@@ -443,4 +476,462 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get bands => 'Direnç Bandı';
+
+  @override
+  String get profile => 'Profil';
+
+  @override
+  String get bodyMeasurements => 'Vücut Ölçüleri';
+
+  @override
+  String get progressTracking => 'Gelişim Takibi';
+
+  @override
+  String get name => 'İsim';
+
+  @override
+  String get yourName => 'Adınız';
+
+  @override
+  String get nameRequired => 'İsim gerekli';
+
+  @override
+  String get gender => 'Cinsiyet';
+
+  @override
+  String get age => 'Yaş';
+
+  @override
+  String get yourAge => 'Yaşınız';
+
+  @override
+  String get years => 'yıl';
+
+  @override
+  String get height => 'Boy';
+
+  @override
+  String get yourHeight => 'Boyunuz';
+
+  @override
+  String get cm => 'cm';
+
+  @override
+  String get targetWeight => 'Hedef Kilo';
+
+  @override
+  String get yourTargetWeight => 'Hedef kilonuz';
+
+  @override
+  String get kg => 'kg';
+
+  @override
+  String get bmi => 'Vücut Kitle İndeksi (BMI)';
+
+  @override
+  String get unknown => 'Bilinmiyor';
+
+  @override
+  String get underweight => 'Zayıf';
+
+  @override
+  String get normal => 'Normal';
+
+  @override
+  String get overweight => 'Fazla Kilolu';
+
+  @override
+  String get obese => 'Obez';
+
+  @override
+  String get profileUpdated => 'Profil güncellendi';
+
+  @override
+  String get measurements => 'Ölçüler';
+
+  @override
+  String get addNewMeasurement => 'Yeni Ölçüm Ekle';
+
+  @override
+  String get weight => 'Kilo';
+
+  @override
+  String get weightRequired => 'Kilo (kg) *';
+
+  @override
+  String get chestMeasurement => 'Göğüs (cm)';
+
+  @override
+  String get waistMeasurement => 'Bel (cm)';
+
+  @override
+  String get hipsMeasurement => 'Kalça (cm)';
+
+  @override
+  String get armsMeasurement => 'Kol (cm)';
+
+  @override
+  String get thighsMeasurement => 'Bacak (cm)';
+
+  @override
+  String get notes => 'Notlar';
+
+  @override
+  String get currentWeight => 'Mevcut Kilo';
+
+  @override
+  String get firstMeasurement => 'İlk ölçüm';
+
+  @override
+  String get weightChart => 'Kilo Grafiği';
+
+  @override
+  String get measurementHistory => 'Geçmiş Ölçümler';
+
+  @override
+  String get noMeasurementsYet => 'Henüz ölçüm yok';
+
+  @override
+  String get addFirstMeasurement =>
+      'İlerlemenizi takip etmek için ilk ölçümünüzü ekleyin';
+
+  @override
+  String get measurementAdded => 'Ölçüm eklendi';
+
+  @override
+  String get thisFieldRequired => 'Bu alan gerekli';
+
+  @override
+  String get fitnessScore => 'Fitness Skorunuz';
+
+  @override
+  String get totalWorkouts => 'Toplam';
+
+  @override
+  String get workouts => 'Antrenman';
+
+  @override
+  String get currentStreak => 'Seri';
+
+  @override
+  String get totalVolume => 'Hacim';
+
+  @override
+  String get averageTime => 'Ortalama';
+
+  @override
+  String get weeklyActivity => 'Haftalık Aktivite';
+
+  @override
+  String get achievements => 'Başarılar';
+
+  @override
+  String get achievementsUnlocked => 'Başarı Açıldı';
+
+  @override
+  String get earnedAchievements => 'Kazanılan Başarılar';
+
+  @override
+  String get unlocked => 'Açıldı!';
+
+  @override
+  String get notUnlockedYet => 'Henüz açılmadı';
+
+  @override
+  String get close => 'Kapat';
+
+  @override
+  String get unlockedOn => 'Açıldı:';
+
+  @override
+  String get scoreLegend => 'Efsane';
+
+  @override
+  String get scoreGreat => 'Harika';
+
+  @override
+  String get scoreGood => 'İyi';
+
+  @override
+  String get scoreBeginner => 'Başlangıç';
+
+  @override
+  String get scoreKeepGoing => 'Devam Et';
+
+  @override
+  String get dayMon => 'Pzt';
+
+  @override
+  String get dayTue => 'Sal';
+
+  @override
+  String get dayWed => 'Çar';
+
+  @override
+  String get dayThu => 'Per';
+
+  @override
+  String get dayFri => 'Cum';
+
+  @override
+  String get daySat => 'Cmt';
+
+  @override
+  String get daySun => 'Paz';
+
+  @override
+  String get streakDays => 'Gün Serisi';
+
+  @override
+  String get streakDaysPlural => 'Gün Serisi';
+
+  @override
+  String get startYourStreak => 'Serini Başlat!';
+
+  @override
+  String get bestStreak => 'En iyi';
+
+  @override
+  String get workoutTodayKeepStreak =>
+      'Serini devam ettirmek için bugün antrenman yap!';
+
+  @override
+  String get nextMilestone => 'Sonraki hedef';
+
+  @override
+  String get completeWorkoutStartStreak =>
+      'Serini başlatmak için antrenman tamamla!';
+
+  @override
+  String get level => 'Seviye';
+
+  @override
+  String get xp => 'XP';
+
+  @override
+  String get totalWorkoutsCount => 'antrenman';
+
+  @override
+  String get totalPRsCount => 'rekorum';
+
+  @override
+  String get personalRecord => 'Kişisel Rekor';
+
+  @override
+  String get newPersonalRecord => 'YENİ KİŞİSEL REKOR!';
+
+  @override
+  String get pr => 'Rekor';
+
+  @override
+  String get lastWorkout => 'Son';
+
+  @override
+  String get lastTime => 'Geçen seferde';
+
+  @override
+  String get suggestion => 'Dene';
+
+  @override
+  String get allSetsGoodForm => 'Tüm setleri doğru formla tamamla';
+
+  @override
+  String get trackPerformance => 'Performansını kaydet';
+
+  @override
+  String get tryMoreWeight => '+2.5kg veya +1 tekrar dene';
+
+  @override
+  String get maintainWeight => 'Harika! Bu ağırlığı koru';
+
+  @override
+  String get restWell => 'İyi dinlen, sen yaparsın!';
+
+  @override
+  String get week => 'hafta';
+
+  @override
+  String get weeksPlural => 'hafta';
+
+  @override
+  String get month => 'ay';
+
+  @override
+  String get monthsPlural => 'ay';
+
+  @override
+  String get ago => 'önce';
+
+  @override
+  String get progress => 'Gelişim';
+
+  @override
+  String get notifications => 'Bildirimler';
+
+  @override
+  String get notificationSettings => 'Bildirim Ayarları';
+
+  @override
+  String get dailyReminder => 'Günlük Antrenman Hatırlatıcısı';
+
+  @override
+  String get reminderTime => 'Hatırlatıcı Zamanı';
+
+  @override
+  String get streakWarnings => 'Seri Uyarıları';
+
+  @override
+  String get achievementNotifications => 'Başarı Bildirimleri';
+
+  @override
+  String get restDayReminders => 'Dinlenme Günü Hatırlatıcıları';
+
+  @override
+  String get prCelebrations => 'Kişisel Rekor Kutlamaları';
+
+  @override
+  String get testNotification => 'Test Bildirimi';
+
+  @override
+  String get notificationPermissionRequired => 'Bildirim izni gerekli';
+
+  @override
+  String get enableNotifications => 'Bildirimleri Etkinleştir';
+
+  @override
+  String get notifDailyWorkoutTitle => 'Antrenman Zamanı! 💪';
+
+  @override
+  String get notifDailyWorkoutBody =>
+      'Antrenmanın seni bekliyor. Hadi serini devam ettirelim!';
+
+  @override
+  String get notifStreakWarningTitle => 'Serini Kırma! 🔥';
+
+  @override
+  String notifStreakWarningBody(Object streak) {
+    return '$streak günlük serin var! Serini devam ettirmek için kısa bir antrenman yap.';
+  }
+
+  @override
+  String get notifAchievementTitle => 'Başarı Açıldı! 🏆';
+
+  @override
+  String get notifPRTitle => 'Yeni Kişisel Rekor! 🎉';
+
+  @override
+  String notifPRBody(Object exercise, Object reps, Object weight) {
+    return '$exercise için PR yaptın! ${weight}kg x $reps tekrar';
+  }
+
+  @override
+  String get notifRestDayTitle => 'Dinlenme Günü 😴';
+
+  @override
+  String get notifRestDayBody =>
+      'Toparlanma çok önemli! Bugün dinlen ve daha güçlü dön.';
+
+  @override
+  String get notifWeeklySummaryTitle => 'Haftalık Özet 📊';
+
+  @override
+  String notifWeeklySummaryBody(Object count) {
+    return 'Bu hafta $count antrenman tamamladın! Gelişimini kontrol et.';
+  }
+
+  @override
+  String get exerciseDetail => 'Egzersiz Detayı';
+
+  @override
+  String get howToDoIt => 'Nasıl Yapılır';
+
+  @override
+  String get tips => 'İpuçları';
+
+  @override
+  String get commonMistakes => 'Yaygın Hatalar';
+
+  @override
+  String get musclesWorked => 'Çalışan Kaslar';
+
+  @override
+  String get primaryMuscle => 'Birincil';
+
+  @override
+  String get secondaryMuscle => 'İkincil';
+
+  @override
+  String get watchVideo => 'Video İzle';
+
+  @override
+  String get detailedInstructionsComingSoon => 'Detaylı talimatlar yakında!';
+
+  @override
+  String get restTime => 'Dinlenme Süresi';
+
+  @override
+  String get restTimer => 'Dinlenme Zamanlayıcısı';
+
+  @override
+  String get selectRestDuration => 'Dinlenme Süresi Seç';
+
+  @override
+  String get customDuration => 'Özel';
+
+  @override
+  String get seconds => 'saniye';
+
+  @override
+  String get addTime => '+15sn';
+
+  @override
+  String get removeTime => '-15sn';
+
+  @override
+  String get skipRest => 'Dinlenmeyi Atla';
+
+  @override
+  String get startRest => 'Dinlenmeyi Başlat';
+
+  @override
+  String get restComplete => 'Dinlenme Tamamlandı!';
+
+  @override
+  String get readyForNextSet => 'Sonraki set için hazır';
+
+  @override
+  String get waterIntake => 'Su Tüketimi';
+
+  @override
+  String get dailyWaterGoal => 'Günlük Hedef';
+
+  @override
+  String get waterGoal => 'Su Hedefi';
+
+  @override
+  String get glasses => 'bardak';
+
+  @override
+  String get addGlass => 'Bardak Ekle';
+
+  @override
+  String get setGoal => 'Hedef Belirle';
+
+  @override
+  String get goalReached => 'Hedef Tamamlandı!';
+
+  @override
+  String get remaining => 'Kalan';
+
+  @override
+  String get consumed => 'İçilen';
+
+  @override
+  String get ml => 'ml';
+
+  @override
+  String get liters => 'L';
+
+  @override
+  String get settings => 'Ayarlar';
 }

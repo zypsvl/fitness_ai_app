@@ -264,84 +264,108 @@ class _ExercisePickerScreenState extends State<ExercisePickerScreen> {
   }
 
   Widget _buildExerciseCard(Exercise exercise, int index) {
-    return GlassContainer(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(12),
-      borderRadius: 16,
-      child: InkWell(
-        onTap: () {
-          Navigator.pop(context, exercise);
-        },
-        borderRadius: BorderRadius.circular(16),
-        child: Row(
-          children: [
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                gradient: AppTheme.primaryGradient,
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  exercise.assetPath,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Icon(
-                      Icons.fitness_center,
-                      color: Colors.white.withValues(alpha: 0.5),
-                      size: 32,
-                    );
+    return Consumer<WorkoutProvider>(
+      builder: (context, provider, _) {
+        final strings = AppStrings(context);
+        final isFav = provider.isFavorite(exercise.id);
+        
+        return GlassContainer(
+          margin: const EdgeInsets.only(bottom: 12),
+          padding: const EdgeInsets.all(12),
+          borderRadius: 16,
+          child: InkWell(
+            onTap: () {
+              Navigator.pop(context, exercise);
+            },
+            borderRadius: BorderRadius.circular(16),
+            child: Row(
+              children: [
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    gradient: AppTheme.primaryGradient,
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.asset(
+                      exercise.assetPath,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Icon(
+                          Icons.fitness_center,
+                          color: Colors.white.withValues(alpha: 0.5),
+                          size: 32,
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        exercise.name,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        strings.getMuscleName(exercise.primaryMuscle),
+                        style: TextStyle(
+                          color: AppTheme.secondaryCyan,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        strings.getEquipmentName(exercise.equipmentTier),
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.6),
+                          fontSize: 11,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(
+                    isFav ? Icons.star : Icons.star_border,
+                    color: isFav 
+                      ? AppTheme.accentOrange 
+                      : Colors.white.withValues(alpha: 0.5),
+                    size: 24,
+                  ),
+                  onPressed: () async {
+                    await provider.toggleFavorite(exercise.id);
+                    
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            !isFav ? strings.addedToFavorites : strings.removedFromFavorites,
+                          ),
+                          duration: const Duration(milliseconds: 1500),
+                          behavior: SnackBarBehavior.floating,
+                        ),
+                      );
+                    }
                   },
                 ),
-              ),
+              ],
             ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    exercise.name,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    AppStrings(context).getMuscleName(exercise.primaryMuscle),
-                    style: TextStyle(
-                      color: AppTheme.secondaryCyan,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    AppStrings(context).getEquipmentName(exercise.equipmentTier),
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.6),
-                      fontSize: 11,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.white.withValues(alpha: 0.5),
-              size: 16,
-            ),
-          ],
-        ),
-      ),
-    ).animate(delay: (index * 50).ms).fadeIn().slideX(begin: 0.2);
+          ),
+        ).animate(delay: (index * 50).ms).fadeIn().slideX(begin: 0.2);
+      },
+    );
   }
-
-  // Helper methods removed as they are now in AppStrings
 }

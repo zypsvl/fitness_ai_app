@@ -836,6 +836,72 @@ abstract class AppLocalizations {
   /// **'No exercises found'**
   String get noExercisesFound;
 
+  /// No description provided for @equipmentQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'What equipment do you have?'**
+  String get equipmentQuestion;
+
+  /// No description provided for @dumbbells.
+  ///
+  /// In en, this message translates to:
+  /// **'Dumbbells'**
+  String get dumbbells;
+
+  /// No description provided for @resistanceBands.
+  ///
+  /// In en, this message translates to:
+  /// **'Resistance Bands'**
+  String get resistanceBands;
+
+  /// No description provided for @bothEquipment.
+  ///
+  /// In en, this message translates to:
+  /// **'Both'**
+  String get bothEquipment;
+
+  /// No description provided for @noEquipment.
+  ///
+  /// In en, this message translates to:
+  /// **'No Equipment'**
+  String get noEquipment;
+
+  /// No description provided for @focusAreasQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Which areas do you want to focus on?'**
+  String get focusAreasQuestion;
+
+  /// No description provided for @selectUpTo3.
+  ///
+  /// In en, this message translates to:
+  /// **'Select areas you want to focus on'**
+  String get selectUpTo3;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @arms.
+  ///
+  /// In en, this message translates to:
+  /// **'Arms'**
+  String get arms;
+
+  /// No description provided for @legs.
+  ///
+  /// In en, this message translates to:
+  /// **'Legs'**
+  String get legs;
+
+  /// No description provided for @core.
+  ///
+  /// In en, this message translates to:
+  /// **'Core'**
+  String get core;
+
   /// No description provided for @chest.
   ///
   /// In en, this message translates to:
@@ -949,6 +1015,900 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Bands'**
   String get bands;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
+  /// No description provided for @bodyMeasurements.
+  ///
+  /// In en, this message translates to:
+  /// **'Body Measurements'**
+  String get bodyMeasurements;
+
+  /// No description provided for @progressTracking.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress Tracking'**
+  String get progressTracking;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// No description provided for @yourName.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Name'**
+  String get yourName;
+
+  /// No description provided for @nameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Name is required'**
+  String get nameRequired;
+
+  /// No description provided for @gender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get gender;
+
+  /// No description provided for @age.
+  ///
+  /// In en, this message translates to:
+  /// **'Age'**
+  String get age;
+
+  /// No description provided for @yourAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Age'**
+  String get yourAge;
+
+  /// No description provided for @years.
+  ///
+  /// In en, this message translates to:
+  /// **'years'**
+  String get years;
+
+  /// No description provided for @height.
+  ///
+  /// In en, this message translates to:
+  /// **'Height'**
+  String get height;
+
+  /// No description provided for @yourHeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Height'**
+  String get yourHeight;
+
+  /// No description provided for @cm.
+  ///
+  /// In en, this message translates to:
+  /// **'cm'**
+  String get cm;
+
+  /// No description provided for @targetWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Target Weight'**
+  String get targetWeight;
+
+  /// No description provided for @yourTargetWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Your target weight'**
+  String get yourTargetWeight;
+
+  /// No description provided for @kg.
+  ///
+  /// In en, this message translates to:
+  /// **'kg'**
+  String get kg;
+
+  /// No description provided for @bmi.
+  ///
+  /// In en, this message translates to:
+  /// **'Body Mass Index (BMI)'**
+  String get bmi;
+
+  /// No description provided for @unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get unknown;
+
+  /// No description provided for @underweight.
+  ///
+  /// In en, this message translates to:
+  /// **'Underweight'**
+  String get underweight;
+
+  /// No description provided for @normal.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal'**
+  String get normal;
+
+  /// No description provided for @overweight.
+  ///
+  /// In en, this message translates to:
+  /// **'Overweight'**
+  String get overweight;
+
+  /// No description provided for @obese.
+  ///
+  /// In en, this message translates to:
+  /// **'Obese'**
+  String get obese;
+
+  /// No description provided for @profileUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated'**
+  String get profileUpdated;
+
+  /// No description provided for @measurements.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurements'**
+  String get measurements;
+
+  /// No description provided for @addNewMeasurement.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Measurement'**
+  String get addNewMeasurement;
+
+  /// No description provided for @weight.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get weight;
+
+  /// No description provided for @weightRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight (kg) *'**
+  String get weightRequired;
+
+  /// No description provided for @chestMeasurement.
+  ///
+  /// In en, this message translates to:
+  /// **'Chest (cm)'**
+  String get chestMeasurement;
+
+  /// No description provided for @waistMeasurement.
+  ///
+  /// In en, this message translates to:
+  /// **'Waist (cm)'**
+  String get waistMeasurement;
+
+  /// No description provided for @hipsMeasurement.
+  ///
+  /// In en, this message translates to:
+  /// **'Hips (cm)'**
+  String get hipsMeasurement;
+
+  /// No description provided for @armsMeasurement.
+  ///
+  /// In en, this message translates to:
+  /// **'Arms (cm)'**
+  String get armsMeasurement;
+
+  /// No description provided for @thighsMeasurement.
+  ///
+  /// In en, this message translates to:
+  /// **'Thighs (cm)'**
+  String get thighsMeasurement;
+
+  /// No description provided for @notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get notes;
+
+  /// No description provided for @currentWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Weight'**
+  String get currentWeight;
+
+  /// No description provided for @firstMeasurement.
+  ///
+  /// In en, this message translates to:
+  /// **'First measurement'**
+  String get firstMeasurement;
+
+  /// No description provided for @weightChart.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight Chart'**
+  String get weightChart;
+
+  /// No description provided for @measurementHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurement History'**
+  String get measurementHistory;
+
+  /// No description provided for @noMeasurementsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No measurements yet'**
+  String get noMeasurementsYet;
+
+  /// No description provided for @addFirstMeasurement.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first measurement to track progress'**
+  String get addFirstMeasurement;
+
+  /// No description provided for @measurementAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurement added'**
+  String get measurementAdded;
+
+  /// No description provided for @thisFieldRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get thisFieldRequired;
+
+  /// No description provided for @fitnessScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Fitness Score'**
+  String get fitnessScore;
+
+  /// No description provided for @totalWorkouts.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get totalWorkouts;
+
+  /// No description provided for @workouts.
+  ///
+  /// In en, this message translates to:
+  /// **'Workouts'**
+  String get workouts;
+
+  /// No description provided for @currentStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak'**
+  String get currentStreak;
+
+  /// No description provided for @totalVolume.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume'**
+  String get totalVolume;
+
+  /// No description provided for @averageTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Average'**
+  String get averageTime;
+
+  /// No description provided for @weeklyActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Activity'**
+  String get weeklyActivity;
+
+  /// No description provided for @achievements.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievements'**
+  String get achievements;
+
+  /// No description provided for @achievementsUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievements Unlocked'**
+  String get achievementsUnlocked;
+
+  /// No description provided for @earnedAchievements.
+  ///
+  /// In en, this message translates to:
+  /// **'Earned Achievements'**
+  String get earnedAchievements;
+
+  /// No description provided for @unlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked!'**
+  String get unlocked;
+
+  /// No description provided for @notUnlockedYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not unlocked yet'**
+  String get notUnlockedYet;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @unlockedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked on:'**
+  String get unlockedOn;
+
+  /// No description provided for @scoreLegend.
+  ///
+  /// In en, this message translates to:
+  /// **'Legend'**
+  String get scoreLegend;
+
+  /// No description provided for @scoreGreat.
+  ///
+  /// In en, this message translates to:
+  /// **'Great'**
+  String get scoreGreat;
+
+  /// No description provided for @scoreGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get scoreGood;
+
+  /// No description provided for @scoreBeginner.
+  ///
+  /// In en, this message translates to:
+  /// **'Beginner'**
+  String get scoreBeginner;
+
+  /// No description provided for @scoreKeepGoing.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep Going'**
+  String get scoreKeepGoing;
+
+  /// No description provided for @dayMon.
+  ///
+  /// In en, this message translates to:
+  /// **'Mon'**
+  String get dayMon;
+
+  /// No description provided for @dayTue.
+  ///
+  /// In en, this message translates to:
+  /// **'Tue'**
+  String get dayTue;
+
+  /// No description provided for @dayWed.
+  ///
+  /// In en, this message translates to:
+  /// **'Wed'**
+  String get dayWed;
+
+  /// No description provided for @dayThu.
+  ///
+  /// In en, this message translates to:
+  /// **'Thu'**
+  String get dayThu;
+
+  /// No description provided for @dayFri.
+  ///
+  /// In en, this message translates to:
+  /// **'Fri'**
+  String get dayFri;
+
+  /// No description provided for @daySat.
+  ///
+  /// In en, this message translates to:
+  /// **'Sat'**
+  String get daySat;
+
+  /// No description provided for @daySun.
+  ///
+  /// In en, this message translates to:
+  /// **'Sun'**
+  String get daySun;
+
+  /// No description provided for @streakDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Day Streak'**
+  String get streakDays;
+
+  /// No description provided for @streakDaysPlural.
+  ///
+  /// In en, this message translates to:
+  /// **'Day Streak'**
+  String get streakDaysPlural;
+
+  /// No description provided for @startYourStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Your Streak!'**
+  String get startYourStreak;
+
+  /// No description provided for @bestStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Best'**
+  String get bestStreak;
+
+  /// No description provided for @workoutTodayKeepStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Workout today to keep your streak!'**
+  String get workoutTodayKeepStreak;
+
+  /// No description provided for @nextMilestone.
+  ///
+  /// In en, this message translates to:
+  /// **'Next milestone'**
+  String get nextMilestone;
+
+  /// No description provided for @completeWorkoutStartStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete a workout to start your streak!'**
+  String get completeWorkoutStartStreak;
+
+  /// No description provided for @level.
+  ///
+  /// In en, this message translates to:
+  /// **'Level'**
+  String get level;
+
+  /// No description provided for @xp.
+  ///
+  /// In en, this message translates to:
+  /// **'XP'**
+  String get xp;
+
+  /// No description provided for @totalWorkoutsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'workouts'**
+  String get totalWorkoutsCount;
+
+  /// No description provided for @totalPRsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'PRs'**
+  String get totalPRsCount;
+
+  /// No description provided for @personalRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Record'**
+  String get personalRecord;
+
+  /// No description provided for @newPersonalRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'NEW PERSONAL RECORD!'**
+  String get newPersonalRecord;
+
+  /// No description provided for @pr.
+  ///
+  /// In en, this message translates to:
+  /// **'PR'**
+  String get pr;
+
+  /// No description provided for @lastWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'Last'**
+  String get lastWorkout;
+
+  /// No description provided for @lastTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Last time'**
+  String get lastTime;
+
+  /// No description provided for @suggestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Try'**
+  String get suggestion;
+
+  /// No description provided for @allSetsGoodForm.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete all sets with good form'**
+  String get allSetsGoodForm;
+
+  /// No description provided for @trackPerformance.
+  ///
+  /// In en, this message translates to:
+  /// **'Track your performance'**
+  String get trackPerformance;
+
+  /// No description provided for @tryMoreWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Try +2.5kg or +1 rep'**
+  String get tryMoreWeight;
+
+  /// No description provided for @maintainWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Great! Try to maintain'**
+  String get maintainWeight;
+
+  /// No description provided for @restWell.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest well, you got this!'**
+  String get restWell;
+
+  /// No description provided for @week.
+  ///
+  /// In en, this message translates to:
+  /// **'week'**
+  String get week;
+
+  /// No description provided for @weeksPlural.
+  ///
+  /// In en, this message translates to:
+  /// **'weeks'**
+  String get weeksPlural;
+
+  /// No description provided for @month.
+  ///
+  /// In en, this message translates to:
+  /// **'month'**
+  String get month;
+
+  /// No description provided for @monthsPlural.
+  ///
+  /// In en, this message translates to:
+  /// **'months'**
+  String get monthsPlural;
+
+  /// No description provided for @ago.
+  ///
+  /// In en, this message translates to:
+  /// **'ago'**
+  String get ago;
+
+  /// No description provided for @progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get progress;
+
+  /// No description provided for @notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifications;
+
+  /// No description provided for @notificationSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Settings'**
+  String get notificationSettings;
+
+  /// No description provided for @dailyReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Workout Reminder'**
+  String get dailyReminder;
+
+  /// No description provided for @reminderTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder Time'**
+  String get reminderTime;
+
+  /// No description provided for @streakWarnings.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak Warnings'**
+  String get streakWarnings;
+
+  /// No description provided for @achievementNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievement Notifications'**
+  String get achievementNotifications;
+
+  /// No description provided for @restDayReminders.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest Day Reminders'**
+  String get restDayReminders;
+
+  /// No description provided for @prCelebrations.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Record Celebrations'**
+  String get prCelebrations;
+
+  /// No description provided for @testNotification.
+  ///
+  /// In en, this message translates to:
+  /// **'Test Notification'**
+  String get testNotification;
+
+  /// No description provided for @notificationPermissionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification permission required'**
+  String get notificationPermissionRequired;
+
+  /// No description provided for @enableNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Notifications'**
+  String get enableNotifications;
+
+  /// No description provided for @notifDailyWorkoutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time to Workout! 💪'**
+  String get notifDailyWorkoutTitle;
+
+  /// No description provided for @notifDailyWorkoutBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your workout is waiting for you. Let\'s keep that streak going!'**
+  String get notifDailyWorkoutBody;
+
+  /// No description provided for @notifStreakWarningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t Break Your Streak! 🔥'**
+  String get notifStreakWarningTitle;
+
+  /// No description provided for @notifStreakWarningBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You have a {streak} day streak! Complete a quick workout to keep it alive.'**
+  String notifStreakWarningBody(Object streak);
+
+  /// No description provided for @notifAchievementTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievement Unlocked! 🏆'**
+  String get notifAchievementTitle;
+
+  /// No description provided for @notifPRTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New Personal Record! 🎉'**
+  String get notifPRTitle;
+
+  /// No description provided for @notifPRBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You just hit a PR on {exercise}! {weight}kg x {reps} reps'**
+  String notifPRBody(Object exercise, Object reps, Object weight);
+
+  /// No description provided for @notifRestDayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest Day '**
+  String get notifRestDayTitle;
+
+  /// No description provided for @notifRestDayBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery is crucial! Take it easy today and come back stronger.'**
+  String get notifRestDayBody;
+
+  /// No description provided for @notifWeeklySummaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Summary 📊'**
+  String get notifWeeklySummaryTitle;
+
+  /// No description provided for @notifWeeklySummaryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You completed {count} workouts this week! Check your progress.'**
+  String notifWeeklySummaryBody(Object count);
+
+  /// No description provided for @exerciseDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise Detail'**
+  String get exerciseDetail;
+
+  /// No description provided for @howToDoIt.
+  ///
+  /// In en, this message translates to:
+  /// **'How To Do It'**
+  String get howToDoIt;
+
+  /// No description provided for @tips.
+  ///
+  /// In en, this message translates to:
+  /// **'Tips'**
+  String get tips;
+
+  /// No description provided for @commonMistakes.
+  ///
+  /// In en, this message translates to:
+  /// **'Common Mistakes'**
+  String get commonMistakes;
+
+  /// No description provided for @musclesWorked.
+  ///
+  /// In en, this message translates to:
+  /// **'Muscles Worked'**
+  String get musclesWorked;
+
+  /// No description provided for @primaryMuscle.
+  ///
+  /// In en, this message translates to:
+  /// **'Primary'**
+  String get primaryMuscle;
+
+  /// No description provided for @secondaryMuscle.
+  ///
+  /// In en, this message translates to:
+  /// **'Secondary'**
+  String get secondaryMuscle;
+
+  /// No description provided for @watchVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Video'**
+  String get watchVideo;
+
+  /// No description provided for @detailedInstructionsComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed instructions coming soon!'**
+  String get detailedInstructionsComingSoon;
+
+  /// No description provided for @restTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest Time'**
+  String get restTime;
+
+  /// No description provided for @restTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest Timer'**
+  String get restTimer;
+
+  /// No description provided for @selectRestDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Rest Duration'**
+  String get selectRestDuration;
+
+  /// No description provided for @customDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get customDuration;
+
+  /// No description provided for @seconds.
+  ///
+  /// In en, this message translates to:
+  /// **'seconds'**
+  String get seconds;
+
+  /// No description provided for @addTime.
+  ///
+  /// In en, this message translates to:
+  /// **'+15s'**
+  String get addTime;
+
+  /// No description provided for @removeTime.
+  ///
+  /// In en, this message translates to:
+  /// **'-15s'**
+  String get removeTime;
+
+  /// No description provided for @skipRest.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip Rest'**
+  String get skipRest;
+
+  /// No description provided for @startRest.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Rest'**
+  String get startRest;
+
+  /// No description provided for @restComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest Complete!'**
+  String get restComplete;
+
+  /// No description provided for @readyForNextSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready for next set'**
+  String get readyForNextSet;
+
+  /// No description provided for @waterIntake.
+  ///
+  /// In en, this message translates to:
+  /// **'Water Intake'**
+  String get waterIntake;
+
+  /// No description provided for @dailyWaterGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Goal'**
+  String get dailyWaterGoal;
+
+  /// No description provided for @waterGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Water Goal'**
+  String get waterGoal;
+
+  /// No description provided for @glasses.
+  ///
+  /// In en, this message translates to:
+  /// **'glasses'**
+  String get glasses;
+
+  /// No description provided for @addGlass.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Glass'**
+  String get addGlass;
+
+  /// No description provided for @setGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Set Goal'**
+  String get setGoal;
+
+  /// No description provided for @goalReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal Reached!'**
+  String get goalReached;
+
+  /// No description provided for @remaining.
+  ///
+  /// In en, this message translates to:
+  /// **'Remaining'**
+  String get remaining;
+
+  /// No description provided for @consumed.
+  ///
+  /// In en, this message translates to:
+  /// **'Consumed'**
+  String get consumed;
+
+  /// No description provided for @ml.
+  ///
+  /// In en, this message translates to:
+  /// **'ml'**
+  String get ml;
+
+  /// No description provided for @liters.
+  ///
+  /// In en, this message translates to:
+  /// **'L'**
+  String get liters;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
 }
 
 class _AppLocalizationsDelegate

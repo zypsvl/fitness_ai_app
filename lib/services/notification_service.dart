@@ -52,19 +52,13 @@ class NotificationService {
       return granted ?? false;
     }
 
-    // iOS permissions requested during initialization
     return true;
   }
 
   /// Handle notification tap
   void _onNotificationTapped(NotificationResponse response) {
     print('Notification tapped: ${response.payload}');
-    // Could navigate to specific screen based on payload
   }
-
-  // ---------------------------------------------------
-  // REST TIMER NOTIFICATIONS
-  // ---------------------------------------------------
 
   /// Show notification when rest timer completes
   Future<void> showRestTimerComplete() async {
@@ -91,7 +85,7 @@ class NotificationService {
     );
 
     await _plugin.show(
-      0, // Notification ID
+      0,
       '⏰ Dinlenme Tamamlandı!',
       'Bir sonraki set için hazır mısın?',
       notificationDetails,
@@ -101,13 +95,8 @@ class NotificationService {
     print('✅ Rest timer notification sent');
   }
 
-  // ---------------------------------------------------
-  // WORKOUT REMINDER NOTIFICATIONS
-  // ---------------------------------------------------
-
-  /// Schedule daily workout reminder at specific time
+  /// Schedule daily workout reminder
   Future<void> scheduleWorkoutReminder(TimeOfDay time) async {
-    // Cancel previous workout reminders
     await _plugin.cancel(1);
 
     final now = DateTime.now();
@@ -119,7 +108,6 @@ class NotificationService {
       time.minute,
     );
 
-    // If time has passed today, schedule for tomorrow
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
@@ -146,7 +134,7 @@ class NotificationService {
     );
 
     await _plugin.zonedSchedule(
-      1, // Notification ID
+      1,
       '🏋️ Antrenman Zamanı!',
       'Fitness yolculuğun seni bekliyor',
       tz.TZDateTime.from(scheduledDate, tz.local),
@@ -154,7 +142,7 @@ class NotificationService {
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.time, // Repeat daily
+      matchDateTimeComponents: DateTimeComponents.time,
       payload: 'workout_reminder',
     );
 
@@ -167,42 +155,19 @@ class NotificationService {
     print('❌ Workout reminder cancelled');
   }
 
-  // ---------------------------------------------------
-  // MOTIVATIONAL MESSAGES
-  // ---------------------------------------------------
-
-  final List<String> _motivationalMessages = [
-    'Bugün harika bir antrenman günü! 💪',
-    'Hedeflerine bir adım daha yakınsın! 🎯',
-    'Güçlü kalırsan, güçlü olursun! 🔥',
-    'Her set seni daha iyi yapıyor! ⚡',
-    'Başarı tutarlılıktan gelir! 🌟',
-    'Sen yapabilirsin! Kendine inan! 💫',
-    'Bugün kendini zorla! 🚀',
-    'Vücut elde etmek istediğin yaşamı yaratır! 🏆',
-  ];
-
-  /// Schedule daily motivational message (8 AM)
-  Future<void> scheduleDailyMotivation() async {
-    // Cancel previous motivation
-    await _plugin.cancel(2);
-
-    final now = DateTime.now();
-    var scheduledDate = DateTime(now.year, now.month, now.day, 8, 0); // 8 AM
-
-    if (scheduledDate.isBefore(now)) {
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
-    }
-
-    // Random motivational message
-    final message = (_motivationalMessages..shuffle()).first;
-
+  /// Cancel all notifications
+  Future<void> cancelAll() async {
+    await _plugin.cancelAll();
+    print('❌ All notifications cancelled');
+  }
+  /// Show test notification
+  Future<void> showTestNotification({required String title, required String body}) async {
     const androidDetails = AndroidNotificationDetails(
-      'motivation',
-      'Daily Motivation',
-      channelDescription: 'Daily motivational messages',
-      importance: Importance.defaultImportance,
-      priority: Priority.defaultPriority,
+      'test_channel',
+      'Test Notifications',
+      channelDescription: 'Channel for testing notifications',
+      importance: Importance.high,
+      priority: Priority.high,
       playSound: true,
       icon: '@mipmap/ic_launcher',
     );
@@ -218,43 +183,12 @@ class NotificationService {
       iOS: iosDetails,
     );
 
-    await _plugin.zonedSchedule(
-      2, // Notification ID
-      '💪 Günün Motivasyonu',
-      message,
-      tz.TZDateTime.from(scheduledDate, tz.local),
+    await _plugin.show(
+      999,
+      title,
+      body,
       notificationDetails,
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.time,
-      payload: 'motivation',
     );
-
-    print('✅ Daily motivation scheduled');
-  }
-
-  /// Cancel daily motivation
-  Future<void> cancelDailyMotivation() async {
-    await _plugin.cancel(2);
-    print('❌ Daily motivation cancelled');
-  }
-
-  // ---------------------------------------------------
-  // UTILITY METHODS
-  // ---------------------------------------------------
-
-  /// Cancel all notifications
-  Future<void> cancelAll() async {
-    await _plugin.cancelAll();
-    print('❌ All notifications cancelled');
-  }
-
-  /// Get active notifications (for debugging)
-  Future<List<ActiveNotification>> getActiveNotifications() async {
-    final List<ActiveNotification> activeNotifications =
-        await _plugin.getActiveNotifications();
-    return activeNotifications;
   }
 
   /// Check if notifications are enabled
@@ -266,7 +200,8 @@ class NotificationService {
     if (androidImplementation != null) {
       return await androidImplementation.areNotificationsEnabled() ?? false;
     }
-
-    return true; // iOS assumes enabled if permission granted
+    
+    // For iOS, we assume true if initialized, or implement specific check
+    return true; 
   }
 }
